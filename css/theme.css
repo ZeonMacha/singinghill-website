@@ -1,540 +1,430 @@
-/* ==========================================================================
-   歌颂之丘 — 磨砂背景与三作深色系主题样式层 (css/theme.css)
-   保留 css/style.css 全部布局、字号、间距与机械切角几何不改动：
-   - 背景层：方案 B 柔焦磨砂背景（blur(8px) + 暗角氛围雾纱 + 细微喷砂颗粒）
-   - 界面层：方案 D 双色磨砂 UI/UX（深黑烟熏导航模块框 + 柔雾浅底阅读主窗）
-   - 主题色：整体压深并与各作背景融合
-     · AT1 深紫靛 (#423466 / #31254e)
-     · AT2 深海青蓝 (#164c66 / #0e3346)
-     · AT3 深暮紫 (#552b46 / #451c36)
-   ========================================================================== */
+/* 歌颂之丘 — 磨砂背景与三作主题色样式表 (由内置调色板导出，可直接覆盖 css/theme.css) */
 
 :root {
   --canvas-base: #cfd5de;
-  --bg-overscan: -24px;
-  --bg-filter: blur(8px) saturate(120%);
-  --bg-art-opacity: 0.90;
-  --bg-veil-paint: radial-gradient(
-    circle at 50% 36%,
-    rgba(236, 240, 246, 0.20) 0%,
-    rgba(20, 24, 32, 0.26) 100%
-  );
+  --bg-overscan: -20px;
+  --bg-filter: blur(4px) saturate(120%);
+  --bg-art-opacity: 0.9;
+  --bg-veil-paint: radial-gradient(circle at 50% 36%, rgba(236, 240, 246, 0.16) 0%, rgba(20, 24, 32, 0.36) 100%);
   --bg-grain-opacity: 0.036;
 
-  /* 默认中性页（Ciel nosurge / Ar nosurge / Web） */
-  --surface: rgba(246, 248, 250, 0.86);
+  --panel-glass-bg: rgba(243, 245, 249, 0.83);
+  --panel-backdrop: blur(9px) saturate(150%);
+  --surface: rgba(243, 245, 249, 0.89);
   --surface-2: rgba(232, 236, 242, 0.72);
-  --surface-3: rgba(220, 225, 233, 0.78);
-  --bar: #232730;
+  --surface-3: rgba(232, 236, 242, 0.79);
+
+  --panel-frame: #232730;
+  --bar: #323844;
   --bar-2: #323844;
-  --bar-3: #454d5c;
+  --bar-3: #484e5a;
+  --conn-main: #232730;
+  --conn-aux: rgba(35, 39, 48, 0.68);
+  --scroll-thumb: #232730;
+  --scroll-thumb-hover: #3b3f48;
+
+  --line-strong: rgba(148, 156, 169, 0.82);
+  --line: rgba(148, 156, 169, 0.68);
+  --line-soft: rgba(148, 156, 169, 0.6);
+  --line-hair: rgba(148, 156, 169, 0.46);
+
   --ink: #15181d;
   --ink-body: #292d34;
-  --ink-soft: #434954;
+  --ink-soft: #464c56;
   --ink-mute: #666e7b;
-  --line-strong: #949ca9;
-  --line: #b8c0cc;
-  --line-soft: rgba(176, 184, 195, 0.60);
-  --line-hair: rgba(186, 194, 204, 0.46);
+  --btn-ink: #ffffff;
+  --btn-sub-ink: rgba(255, 255, 255, 0.80);
+  --btn-outline: rgba(255, 255, 255, 0.34);
+  --footer-ink: #242932;
+  --footer-shadow: 0 1px 4px rgba(255, 255, 255, 0.84);
 
-  --panel-glass-bg: rgba(243, 245, 249, 0.83);
-  --panel-backdrop: blur(22px) saturate(150%);
-  --tab-backdrop: blur(16px) saturate(145%);
-  --pill-backdrop: blur(16px) saturate(145%);
+  --tab-backdrop: blur(9px) saturate(145%);
+  --pill-backdrop: blur(9px) saturate(145%);
+  --tab-glass-bg: rgba(15, 17, 21, 0.78);
+  --tab-glass-hover-bg: rgba(29, 31, 35, 0.84);
+  --tab-glass-active-bg: rgba(41, 43, 47, 0.88);
+  --pill-glass-bg: rgba(15, 17, 21, 0.78);
+  --pill-glass-hover-bg: rgba(29, 31, 35, 0.84);
+  --pill-glass-active-bg: rgba(41, 43, 47, 0.88);
+  --mobile-drawer-bg: rgba(15, 17, 21, 0.9);
 
-  /* 左栏与底栏：压黑的深炭烟熏毛玻璃底 + 深色主题选中态 */
-  --tab-glass-bg: rgba(15, 17, 21, 0.80);
-  --tab-glass-hover-bg: rgba(25, 28, 35, 0.86);
-  --tab-glass-active-bg: rgba(34, 38, 47, 0.90);
-  --tab-sel-bg: linear-gradient(135deg, rgba(44, 49, 60, 0.95), rgba(26, 30, 38, 0.96));
-  --tab-sel-hover-bg: linear-gradient(135deg, rgba(54, 60, 73, 0.96), rgba(34, 39, 49, 0.97));
-  --tab-stroke: rgba(255, 255, 255, 0.22);
-  --tab-hover-stroke: rgba(255, 255, 255, 0.48);
+  --tab-stroke: rgba(255, 255, 255, 0.24);
+  --tab-hover-stroke: rgba(255, 255, 255, 0.54);
+  --tab-spine: rgba(255, 255, 255, 0.48);
+  --pill-stroke: rgba(255, 255, 255, 0.24);
+  --pill-hover-stroke: rgba(255, 255, 255, 0.54);
+
+  --tab-ink: #e8ecf2;
+  --tab-sub-ink: rgba(198, 206, 218, 0.84);
+  --tab-sub-hover-ink: #e8ecf2;
+  --pill-zh-ink: #e8ecf2;
+  --pill-en-ink: rgba(198, 206, 218, 0.8);
+  --pill-desc-ink: rgba(198, 206, 218, 0.74);
+
+  --tab-sel-bg: linear-gradient(135deg, rgba(44, 49, 60, 0.64), rgba(26, 30, 38, 0.66));
+  --tab-sel-hover-bg: linear-gradient(135deg, rgba(58, 63, 74, 0.66), rgba(38, 42, 50, 0.67));
+  --pill-sel-bg: linear-gradient(135deg, rgba(44, 49, 60, 0.64), rgba(26, 30, 38, 0.66));
+  --pill-sel-hover-bg: linear-gradient(135deg, rgba(58, 63, 74, 0.66), rgba(38, 42, 50, 0.67));
+
   --tab-sel-stroke: #dfe5ee;
-  --tab-sel-hover-stroke: #ffffff;
+  --tab-sel-hover-stroke: #f3f9ff;
+  --pill-sel-stroke: #dfe5ee;
+  --pill-sel-hover-stroke: #f3f9ff;
+  --tab-sel-spine: #ffffff;
+
+  --tab-sel-ink: #ffffff;
+  --tab-sel-sub-ink: #dfe6f0;
+  --pill-sel-zh-ink: #ffffff;
+  --pill-sel-en-ink: #dfe6f0;
+  --pill-sel-desc-ink: rgba(223, 230, 240, 0.88);
   --tab-strip: rgba(255, 255, 255, 0.08);
   --tab-hover-strip: rgba(255, 255, 255, 0.14);
   --tab-sel-strip: rgba(255, 255, 255, 0.18);
-  --tab-spine: rgba(255, 255, 255, 0.34);
   --tab-hover-spine: rgba(255, 255, 255, 0.78);
-  --tab-sel-spine: #ffffff;
   --tab-notch: rgba(255, 255, 255, 0.18);
   --tab-sel-notch: rgba(255, 255, 255, 0.36);
-  --tab-ink: #e8ecf2;
-  --tab-sub-ink: rgba(198, 206, 218, 0.78);
-  --tab-sub-hover-ink: #f4f7fb;
-  --tab-sel-ink: #ffffff;
-  --tab-sel-sub-ink: #dfe6f0;
   --sel-text-shadow: 0 1px 2px rgba(6, 8, 14, 0.48);
-
-  --pill-glass-bg: rgba(15, 17, 21, 0.80);
-  --pill-glass-hover-bg: rgba(25, 28, 35, 0.86);
-  --pill-glass-active-bg: rgba(34, 38, 47, 0.90);
-  --pill-sel-bg: linear-gradient(135deg, rgba(44, 49, 60, 0.95), rgba(26, 30, 38, 0.96));
-  --pill-sel-hover-bg: linear-gradient(135deg, rgba(54, 60, 73, 0.96), rgba(34, 39, 49, 0.97));
-  --pill-stroke: rgba(255, 255, 255, 0.22);
-  --pill-hover-stroke: rgba(255, 255, 255, 0.48);
-  --pill-sel-stroke: #dfe5ee;
-  --pill-sel-hover-stroke: #ffffff;
   --pill-inner-stroke: rgba(255, 255, 255, 0.10);
   --pill-sel-inner-stroke: rgba(255, 255, 255, 0.26);
   --pill-divider: rgba(255, 255, 255, 0.15);
   --pill-sel-divider: rgba(255, 255, 255, 0.30);
-  --pill-en-ink: rgba(198, 206, 218, 0.76);
-  --pill-zh-ink: #e8ecf2;
-  --pill-desc-ink: rgba(182, 192, 206, 0.70);
-  --pill-sel-en-ink: #dce4f0;
-  --pill-sel-zh-ink: #ffffff;
-  --pill-sel-desc-ink: #cbd5e4;
-
-  --conn-main: var(--bar);
-  --conn-aux: rgba(70, 78, 92, 0.68);
   --scroll-cap-side: rgba(108, 118, 132, 0.82);
-  --scroll-thumb: var(--bar);
-  --scroll-thumb-hover: var(--bar-2);
   --scroll-grip: rgba(255, 255, 255, 0.74);
   --scroll-grip-hover: #ffffff;
-  --footer-ink: #242932;
-  --footer-shadow: 0 1px 4px rgba(255, 255, 255, 0.82);
-  --mobile-drawer-bg: rgba(14, 16, 20, 0.92);
 }
 
-/* ── 1. 背景舞台（方案 B：blur(8px) 柔焦扩边 + 氛围暗角纱 + 微喷砂颗粒） ── */
-html, body {
-  background: var(--canvas-base);
-}
-body {
-  background: transparent !important;
-  position: relative;
-}
-
-.bg-stage {
-  position: fixed;
-  inset: 0;
-  z-index: -2;
-  overflow: hidden;
-  pointer-events: none;
-  background: var(--canvas-base);
-  transition: background 420ms var(--ease);
-}
-
-.bg-slide {
-  position: absolute;
-  inset: var(--bg-overscan);
-  background-position: center 40%;
-  background-size: cover;
-  background-repeat: no-repeat;
-  filter: var(--bg-filter);
-  opacity: 0;
-  transform: translateZ(0);
-  will-change: opacity;
-  transition: opacity 460ms var(--ease);
-}
+/* ── 1. 背景舞台 ── */
+html, body { background: var(--canvas-base); }
+body { background: transparent !important; position: relative; }
+.bg-stage { position: fixed; inset: 0; z-index: -2; overflow: hidden; pointer-events: none; background: var(--canvas-base); transition: background 420ms var(--ease); }
+.bg-slide { position: absolute; inset: var(--bg-overscan); background-position: center 40%; background-size: cover; background-repeat: no-repeat; filter: var(--bg-filter); opacity: 0; transform: translateZ(0); will-change: opacity; transition: opacity 460ms var(--ease); }
 .bg-slide[data-bg="at1"] { background-image: url("../images/at1.jpg"); }
 .bg-slide[data-bg="at2"] { background-image: url("../images/at2.jpg"); }
 .bg-slide[data-bg="at3"] { background-image: url("../images/at3.jpg"); }
-
 html[data-series="at1"] .bg-slide[data-bg="at1"],
 html[data-series="at2"] .bg-slide[data-bg="at2"],
-html[data-series="at3"] .bg-slide[data-bg="at3"] {
-  opacity: var(--bg-art-opacity);
-}
-
-.bg-neutral {
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(circle at 52% 36%, rgba(255, 255, 255, 0.65), transparent 62%),
-    linear-gradient(155deg, #e2e6ec 0%, #cbd2dc 100%);
-  opacity: 1;
-  transition: opacity 460ms var(--ease);
-}
+html[data-series="at3"] .bg-slide[data-bg="at3"] { opacity: var(--bg-art-opacity); }
+.bg-neutral { position: absolute; inset: 0; background: radial-gradient(circle at 52% 36%, rgba(255, 255, 255, 0.65), transparent 62%), linear-gradient(155deg, #e2e6ec 0%, #cbd2dc 100%); opacity: 1; transition: opacity 460ms var(--ease); }
 html[data-series="at1"] .bg-neutral,
 html[data-series="at2"] .bg-neutral,
-html[data-series="at3"] .bg-neutral {
-  opacity: 0;
-}
+html[data-series="at3"] .bg-neutral { opacity: 0; }
+.bg-veil { position: absolute; inset: 0; background: var(--bg-veil-paint); transition: background 420ms var(--ease); }
+.bg-grain { position: absolute; inset: 0; opacity: var(--bg-grain-opacity); mix-blend-mode: overlay; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); background-size: 140px 140px; }
 
-.bg-veil {
-  position: absolute;
-  inset: 0;
-  background: var(--bg-veil-paint);
-  transition: background 420ms var(--ease);
-}
-
-.bg-grain {
-  position: absolute;
-  inset: 0;
-  opacity: var(--bg-grain-opacity);
-  mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 140px 140px;
-}
-
-/* ── 2. 多边形切角毛玻璃层（贴合原有 SVG 几何，不改动任何尺寸或边距） ── */
-.panel, .tab, .pill {
-  isolation: auto;
-}
+/* ── 2. 多边形切角毛玻璃层 ── */
+.panel, .tab, .pill { isolation: auto; }
 .panel { z-index: 2; }
 .tab, .pill { z-index: 1; }
-
-.panel-glass,
-.tab-glass,
-.pill-glass {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  transition:
-    background var(--fast) var(--ease),
-    backdrop-filter var(--fast) var(--ease),
-    -webkit-backdrop-filter var(--fast) var(--ease);
-}
-
-.panel-glass {
-  background: var(--panel-glass-bg);
-  -webkit-backdrop-filter: var(--panel-backdrop);
-  backdrop-filter: var(--panel-backdrop);
-}
-#panel-fill {
-  fill: transparent !important;
-}
-
-.tab-glass {
-  background: var(--tab-glass-bg);
-  -webkit-backdrop-filter: var(--tab-backdrop);
-  backdrop-filter: var(--tab-backdrop);
-}
+.panel-glass, .tab-glass, .pill-glass { position: absolute; inset: 0; z-index: 0; pointer-events: none; transition: background var(--fast) var(--ease), backdrop-filter var(--fast) var(--ease), -webkit-backdrop-filter var(--fast) var(--ease); }
+.panel-glass { background: var(--panel-glass-bg); -webkit-backdrop-filter: var(--panel-backdrop); backdrop-filter: var(--panel-backdrop); }
+#panel-fill { fill: transparent !important; }
+.tab-glass { background: var(--tab-glass-bg); -webkit-backdrop-filter: var(--tab-backdrop); backdrop-filter: var(--tab-backdrop); }
 .tab:hover .tab-glass { background: var(--tab-glass-hover-bg); }
 .tab:active .tab-glass { background: var(--tab-glass-active-bg); }
 .tab[aria-selected="true"] .tab-glass { background: var(--tab-sel-bg); }
 .tab[aria-selected="true"]:hover .tab-glass { background: var(--tab-sel-hover-bg); }
-
-.pill-glass {
-  background: var(--pill-glass-bg);
-  -webkit-backdrop-filter: var(--pill-backdrop);
-  backdrop-filter: var(--pill-backdrop);
-}
+.pill-glass { background: var(--pill-glass-bg); -webkit-backdrop-filter: var(--pill-backdrop); backdrop-filter: var(--pill-backdrop); }
 .pill:hover .pill-glass { background: var(--pill-glass-hover-bg); }
 .pill:active .pill-glass { background: var(--pill-glass-active-bg); }
 .pill[aria-selected="true"] .pill-glass { background: var(--pill-sel-bg); }
 .pill[aria-selected="true"]:hover .pill-glass { background: var(--pill-sel-hover-bg); }
 
 /* ── 3. HUD 组件色彩变量绑定 ── */
-.connector-layer {
-  filter:
-    drop-shadow(0 0 1.2px rgba(255, 255, 255, 0.45))
-    drop-shadow(0 1px 2px rgba(8, 10, 18, 0.32));
-}
+.connector-layer { filter: drop-shadow(0 0 1.2px rgba(255, 255, 255, 0.45)) drop-shadow(0 1px 2px rgba(8, 10, 18, 0.32)); }
 #connector-aux { stroke: var(--conn-aux); transition: stroke 260ms var(--ease); }
 #connector-line { stroke: var(--conn-main); transition: stroke 260ms var(--ease); }
 #connector-caps { fill: var(--conn-main); transition: fill 260ms var(--ease); }
-
 .tab-frame .tab-bg { fill: transparent; stroke: var(--tab-stroke); }
 .tab:hover .tab-frame .tab-bg { fill: transparent; stroke: var(--tab-hover-stroke); }
 .tab:active .tab-frame .tab-bg { fill: transparent; }
 .tab[aria-selected="true"] .tab-frame .tab-bg { fill: transparent; stroke: var(--tab-sel-stroke); }
 .tab[aria-selected="true"]:hover .tab-frame .tab-bg { fill: transparent; stroke: var(--tab-sel-hover-stroke); }
-
 .tab-frame .tab-strip { fill: var(--tab-strip); }
 .tab:hover .tab-frame .tab-strip { fill: var(--tab-hover-strip); }
 .tab[aria-selected="true"] .tab-frame .tab-strip { fill: var(--tab-sel-strip); }
-
 .tab-frame .tab-spine { fill: var(--tab-spine); }
 .tab:hover .tab-frame .tab-spine { fill: var(--tab-hover-spine); }
 .tab[aria-selected="true"] .tab-frame .tab-spine { fill: var(--tab-sel-spine); }
-
 .tab-frame .tab-notch-line { stroke: var(--tab-notch); }
 .tab[aria-selected="true"] .tab-frame .tab-notch-line { stroke: var(--tab-sel-notch); }
 .tab-frame .tab-foot { fill: var(--conn-main); }
-
 .tab-en { color: var(--tab-ink); text-shadow: 0 1px 2px rgba(4, 6, 12, 0.42); }
 .tab-sub, .tab-sub rt { color: var(--tab-sub-ink); text-shadow: 0 1px 2px rgba(4, 6, 12, 0.36); }
 .tab:hover .tab-sub, .tab:hover .tab-sub rt { color: var(--tab-sub-hover-ink); }
 .tab[aria-selected="true"] .tab-en { color: var(--tab-sel-ink); text-shadow: var(--sel-text-shadow); }
-.tab[aria-selected="true"] .tab-sub,
-.tab[aria-selected="true"] .tab-sub rt { color: var(--tab-sel-sub-ink); text-shadow: var(--sel-text-shadow); }
-
+.tab[aria-selected="true"] .tab-sub, .tab[aria-selected="true"] .tab-sub rt { color: var(--tab-sel-sub-ink); text-shadow: var(--sel-text-shadow); }
 #panel-outline { stroke: var(--panel-frame, var(--bar)); transition: stroke 260ms var(--ease); }
 #panel-armor { fill: var(--panel-frame, var(--bar)); transition: fill 260ms var(--ease); }
 #panel-accents .frame-corner-line { stroke: var(--panel-frame, var(--bar)); transition: stroke 260ms var(--ease); }
 .panel-tab { color: var(--ink); }
 .panel-tab::before { background: var(--panel-frame, var(--bar)); transition: background 260ms var(--ease); }
-
-.hud-scrollbar::before, .hud-scrollbar::after {
-  border-left-color: var(--scroll-cap-side);
-  border-right-color: var(--scroll-cap-side);
-}
+.hud-scrollbar::before, .hud-scrollbar::after { border-left-color: var(--scroll-cap-side); border-right-color: var(--scroll-cap-side); }
 .hud-scrollbar::before { border-top-color: var(--panel-frame, var(--bar)); }
 .hud-scrollbar::after { border-bottom-color: var(--panel-frame, var(--bar)); }
 .hud-scroll-thumb { background: var(--scroll-thumb); }
-.hud-scroll-thumb:hover,
-.hud-scrollbar.is-dragging .hud-scroll-thumb { background: var(--scroll-thumb-hover); }
-.hud-scroll-thumb::before {
-  background: linear-gradient(
-    180deg,
-    var(--scroll-grip) 0 1px, transparent 1px 3px,
-    var(--scroll-grip) 3px 4px, transparent 4px 6px,
-    var(--scroll-grip) 6px 7px
-  );
-}
-.hud-scroll-thumb:hover::before,
-.hud-scrollbar.is-dragging .hud-scroll-thumb::before {
-  background: linear-gradient(
-    180deg,
-    var(--scroll-grip-hover) 0 1px, transparent 1px 3px,
-    var(--scroll-grip-hover) 3px 4px, transparent 4px 6px,
-    var(--scroll-grip-hover) 6px 7px
-  );
-}
-
+.hud-scroll-thumb:hover, .hud-scrollbar.is-dragging .hud-scroll-thumb { background: var(--scroll-thumb-hover); }
+.hud-scroll-thumb::before { background: linear-gradient(180deg, var(--scroll-grip) 0 1px, transparent 1px 3px, var(--scroll-grip) 3px 4px, transparent 4px 6px, var(--scroll-grip) 6px 7px); }
+.hud-scroll-thumb:hover::before, .hud-scrollbar.is-dragging .hud-scroll-thumb::before { background: linear-gradient(180deg, var(--scroll-grip-hover) 0 1px, transparent 1px 3px, var(--scroll-grip-hover) 3px 4px, transparent 4px 6px, var(--scroll-grip-hover) 6px 7px); }
 .pill-frame .pill-bg { fill: transparent; stroke: var(--pill-stroke); }
 .pill:hover .pill-frame .pill-bg { fill: transparent; stroke: var(--pill-hover-stroke); }
 .pill:active .pill-frame .pill-bg { fill: transparent; }
 .pill[aria-selected="true"] .pill-frame .pill-bg { fill: transparent; stroke: var(--pill-sel-stroke); }
 .pill[aria-selected="true"]:hover .pill-frame .pill-bg { fill: transparent; stroke: var(--pill-sel-hover-stroke); }
-
 .pill-frame .pill-inner { stroke: var(--pill-inner-stroke); }
 .pill[aria-selected="true"] .pill-frame .pill-inner { stroke: var(--pill-sel-inner-stroke); }
-
 .pill-label { border-bottom-color: var(--pill-divider); }
 .pill[aria-selected="true"] .pill-label { border-bottom-color: var(--pill-sel-divider); }
-
 .pill-en { color: var(--pill-en-ink); text-shadow: 0 1px 2px rgba(4, 6, 12, 0.36); }
 .pill-zh { color: var(--pill-zh-ink); text-shadow: 0 1px 2px rgba(4, 6, 12, 0.42); }
 .pill-desc { color: var(--pill-desc-ink); text-shadow: 0 1px 2px rgba(4, 6, 12, 0.36); }
 .pill[aria-selected="true"] .pill-en { color: var(--pill-sel-en-ink); text-shadow: var(--sel-text-shadow); }
 .pill[aria-selected="true"] .pill-zh { color: var(--pill-sel-zh-ink); text-shadow: var(--sel-text-shadow); }
 .pill[aria-selected="true"] .pill-desc { color: var(--pill-sel-desc-ink); text-shadow: var(--sel-text-shadow); }
-
-.big-link {
-  color: var(--btn-ink, #ffffff);
-  outline-color: var(--btn-outline, rgba(255, 255, 255, 0.34));
-}
-.big-link span {
-  color: var(--btn-sub-ink, rgba(255, 255, 255, 0.80));
-}
-.notice {
-  border-color: var(--line);
-  border-left-color: var(--bar);
-}
-.empty-note {
-  border-color: var(--line-strong);
-  background: var(--surface-2);
-  color: var(--ink-mute);
-}
-.footer-placeholder {
-  color: var(--footer-ink);
-  text-shadow: var(--footer-shadow);
-}
-
+.big-link { color: var(--btn-ink, #ffffff); outline-color: var(--btn-outline, rgba(255, 255, 255, 0.34)); }
+.big-link span { color: var(--btn-sub-ink, rgba(255, 255, 255, 0.80)); }
+.notice { border-color: var(--line); border-left-color: var(--bar); }
+.empty-note { border-color: var(--line-strong); background: var(--surface-2); color: var(--ink-mute); }
+.footer-placeholder { color: var(--footer-ink); text-shadow: var(--footer-shadow); }
 @media (max-width: 820px) {
-  .menu-toggle {
-    background: var(--bar);
-    color: #ffffff;
-  }
-  .menu-toggle:hover {
-    background: var(--bar-2);
-  }
-  .tabs {
-    border-color: var(--bar);
-    background: var(--mobile-drawer-bg);
-    -webkit-backdrop-filter: blur(20px) saturate(150%);
-    backdrop-filter: blur(20px) saturate(150%);
-  }
+  .menu-toggle { background: var(--bar); color: #ffffff; }
+  .menu-toggle:hover { background: var(--bar-2); }
+  .tabs { border-color: var(--bar); background: var(--mobile-drawer-bg); -webkit-backdrop-filter: blur(20px) saturate(150%); backdrop-filter: blur(20px) saturate(150%); }
 }
 
-/* ==========================================================================
-   Ar tonelico (AT1) — 深紫靛系 (#423466 / #31254e)，融合深海星芒背景
-   ========================================================================== */
 html[data-series="at1"] {
-  --canvas-base: #1b2438;
-  --bg-veil-paint: radial-gradient(
-    circle at 50% 36%,
-    rgba(196, 190, 232, 0.16) 0%,
-    rgba(12, 15, 32, 0.36) 100%
-  );
+  --canvas-base: #271938;
+  --bg-overscan: -20px;
+  --bg-filter: blur(4px) saturate(120%);
+  --bg-art-opacity: 0.9;
+  --bg-veil-paint: radial-gradient(circle at 50% 36%, rgba(196, 190, 232, 0.16) 0%, rgba(12, 15, 32, 0.36) 100%);
+  --bg-grain-opacity: 0.036;
 
-  --surface: rgba(244, 244, 250, 0.88);
-  --surface-2: rgba(226, 224, 239, 0.72);
-  --surface-3: rgba(213, 210, 230, 0.78);
-  --bar: #362956;      /* 深紫靛主框与装甲（与 #451c36 同明度阶） */
-  --bar-2: #46366c;    /* 按钮与次强调阶 */
-  --bar-3: #5b4888;
-  --ink: #191428;
-  --ink-body: #282238;
-  --ink-soft: #423959;
-  --ink-mute: #62587a;
-  --line-strong: #8e82ad;
-  --line: #b5accf;
-  --line-soft: rgba(166, 156, 196, 0.58);
-  --line-hair: rgba(178, 170, 206, 0.45);
+  --panel-glass-bg: rgba(14, 14, 23, 0.83);
+  --panel-backdrop: blur(9px) saturate(150%);
+  --surface: rgba(14, 14, 23, 0.89);
+  --surface-2: rgba(255, 255, 255, 0.06);
+  --surface-3: rgba(255, 255, 255, 0.13);
 
-  /* 正文窗由纯白微压为冷紫雾灰，与深色框及背景自然衔接 */
-  --panel-glass-bg: rgba(239, 240, 247, 0.82);
+  --panel-frame: #c7aef4;
+  --bar: #8662b2;
+  --bar-2: #8662b2;
+  --bar-3: #9c78c8;
+  --conn-main: #c7aef4;
+  --conn-aux: rgba(199, 174, 244, 0.68);
+  --scroll-thumb: #8a79a4;
+  --scroll-thumb-hover: #a291bc;
 
-  /* 侧栏与底栏：近黑紫炭底色 + 深紫靛选中态 */
-  --tab-glass-bg: rgba(14, 14, 23, 0.81);
-  --tab-glass-hover-bg: rgba(24, 23, 38, 0.87);
-  --tab-glass-active-bg: rgba(34, 31, 52, 0.91);
-  --tab-sel-bg: linear-gradient(135deg, rgba(70, 54, 108, 0.95), rgba(49, 37, 80, 0.97));
-  --tab-sel-hover-bg: linear-gradient(135deg, rgba(82, 64, 124, 0.96), rgba(58, 44, 94, 0.97));
-  --tab-stroke: rgba(178, 168, 216, 0.26);
-  --tab-hover-stroke: rgba(204, 194, 238, 0.56);
-  --tab-sel-stroke: #bdb0ea;
-  --tab-sel-hover-stroke: #d7cef7;
-  --tab-spine: rgba(154, 140, 204, 0.52);
-  --tab-sel-spine: #e3dcff;
-  --tab-sel-sub-ink: #dcd6f2;
-  --sel-text-shadow: 0 1px 3px rgba(14, 8, 28, 0.55);
+  --line-strong: rgba(255, 255, 255, 0.38);
+  --line: rgba(255, 255, 255, 0.24);
+  --line-soft: rgba(255, 255, 255, 0.16);
+  --line-hair: rgba(255, 255, 255, 0.05);
 
-  --pill-glass-bg: rgba(14, 14, 23, 0.81);
-  --pill-glass-hover-bg: rgba(24, 23, 38, 0.87);
-  --pill-glass-active-bg: rgba(34, 31, 52, 0.91);
-  --pill-sel-bg: linear-gradient(135deg, rgba(70, 54, 108, 0.95), rgba(49, 37, 80, 0.97));
-  --pill-sel-hover-bg: linear-gradient(135deg, rgba(82, 64, 124, 0.96), rgba(58, 44, 94, 0.97));
-  --pill-stroke: rgba(178, 168, 216, 0.26);
-  --pill-hover-stroke: rgba(204, 194, 238, 0.56);
-  --pill-sel-stroke: #bdb0ea;
-  --pill-sel-hover-stroke: #d7cef7;
-  --pill-sel-en-ink: #d6cef0;
-  --pill-sel-desc-ink: #c6bce6;
-
-  --conn-main: #3b2d5e;
-  --conn-aux: rgba(74, 58, 112, 0.72);
-  --scroll-thumb: #362956;
-  --scroll-thumb-hover: #4a3973;
+  --ink: #f3f6fb;
+  --ink-body: #dde3ee;
+  --ink-soft: #bdc6d4;
+  --ink-mute: #9aa6b8;
+  --btn-ink: #ffffff;
+  --btn-sub-ink: rgba(255, 255, 255, 0.80);
+  --btn-outline: rgba(255, 255, 255, 0.34);
   --footer-ink: #d8d4ec;
-  --footer-shadow: 0 1px 6px rgba(6, 10, 24, 0.92);
-  --mobile-drawer-bg: rgba(13, 13, 22, 0.93);
+  --footer-shadow: 0 1px 6px rgba(6, 10, 20, 0.90);
+
+  --tab-backdrop: blur(9px) saturate(145%);
+  --pill-backdrop: blur(9px) saturate(145%);
+  --tab-glass-bg: rgba(14, 14, 23, 0.78);
+  --tab-glass-hover-bg: rgba(28, 28, 37, 0.84);
+  --tab-glass-active-bg: rgba(40, 40, 49, 0.88);
+  --pill-glass-bg: rgba(14, 14, 23, 0.78);
+  --pill-glass-hover-bg: rgba(28, 28, 37, 0.84);
+  --pill-glass-active-bg: rgba(40, 40, 49, 0.88);
+  --mobile-drawer-bg: rgba(14, 14, 23, 0.9);
+
+  --tab-stroke: rgba(131, 124, 162, 0.3);
+  --tab-hover-stroke: rgba(131, 124, 162, 0.6);
+  --tab-spine: rgba(131, 124, 162, 0.54);
+  --pill-stroke: rgba(131, 124, 162, 0.3);
+  --pill-hover-stroke: rgba(131, 124, 162, 0.6);
+
+  --tab-ink: #e8ecf2;
+  --tab-sub-ink: rgba(198, 206, 218, 0.84);
+  --tab-sub-hover-ink: #e8ecf2;
+  --pill-zh-ink: #e8ecf2;
+  --pill-en-ink: rgba(198, 206, 218, 0.8);
+  --pill-desc-ink: rgba(198, 206, 218, 0.74);
+
+  --tab-sel-bg: linear-gradient(135deg, rgba(41, 38, 54, 0.64), rgba(16, 10, 30, 0.66));
+  --tab-sel-hover-bg: linear-gradient(135deg, rgba(55, 52, 68, 0.66), rgba(28, 22, 42, 0.67));
+  --pill-sel-bg: linear-gradient(135deg, rgba(41, 38, 54, 0.64), rgba(16, 10, 30, 0.66));
+  --pill-sel-hover-bg: linear-gradient(135deg, rgba(55, 52, 68, 0.66), rgba(28, 22, 42, 0.67));
+
+  --tab-sel-stroke: #c7aef4;
+  --tab-sel-hover-stroke: #dbc2ff;
+  --pill-sel-stroke: #c7aef4;
+  --pill-sel-hover-stroke: #dbc2ff;
+  --tab-sel-spine: #d4c2ff;
+
+  --tab-sel-ink: #ffffff;
+  --tab-sel-sub-ink: #dcd6f2;
+  --pill-sel-zh-ink: #ffffff;
+  --pill-sel-en-ink: #dcd6f2;
+  --pill-sel-desc-ink: rgba(220, 214, 242, 0.88);
 }
 
-/* ==========================================================================
-   Ar tonelico II (AT2) — 深海青蓝系 (#164c66 / #0e3346)，融合苍翠秘境背景
-   ========================================================================== */
 html[data-series="at2"] {
-  --canvas-base: #122830;
-  --bg-veil-paint: radial-gradient(
-    circle at 50% 36%,
-    rgba(182, 226, 240, 0.16) 0%,
-    rgba(8, 24, 34, 0.36) 100%
-  );
+  --canvas-base: #192e2d;
+  --bg-overscan: -20px;
+  --bg-filter: blur(4px) saturate(120%);
+  --bg-art-opacity: 0.9;
+  --bg-veil-paint: radial-gradient(circle at 50% 36%, rgba(182, 226, 240, 0.16) 0%, rgba(4, 27, 42, 0.47) 100%);
+  --bg-grain-opacity: 0.036;
 
-  --surface: rgba(242, 248, 250, 0.88);
-  --surface-2: rgba(220, 235, 241, 0.72);
-  --surface-3: rgba(206, 225, 234, 0.78);
-  --bar: #113d52;      /* 深海青蓝主框与装甲（与 #451c36 同明度阶） */
-  --bar-2: #18516c;    /* 按钮与次强调阶 */
-  --bar-3: #21698a;
-  --ink: #0d1f29;
-  --ink-body: #1b2f3a;
-  --ink-soft: #2f4b5a;
-  --ink-mute: #4e6d7d;
-  --line-strong: #739db2;
-  --line: #a1c2d2;
-  --line-soft: rgba(142, 184, 204, 0.58);
-  --line-hair: rgba(158, 196, 214, 0.45);
+  --panel-glass-bg: rgba(1, 16, 30, 0.83);
+  --panel-backdrop: blur(9px) saturate(150%);
+  --surface: rgba(1, 16, 30, 0.89);
+  --surface-2: rgba(255, 255, 255, 0.06);
+  --surface-3: rgba(255, 255, 255, 0.13);
 
-  /* 正文窗微压为冷青雾白，贴合梅塔法尔斯背景色调 */
-  --panel-glass-bg: rgba(237, 244, 247, 0.82);
+  --panel-frame: #7aeef0;
+  --bar: #56a0c2;
+  --bar-2: #56a0c2;
+  --bar-3: #6cb6d8;
+  --conn-main: #7aeef0;
+  --conn-aux: rgba(122, 238, 240, 0.68);
+  --scroll-thumb: #90bfd5;
+  --scroll-thumb-hover: #78a7bd;
 
-  /* 侧栏与底栏：近黑深渊炭底色 + 深海青蓝选中态 */
-  --tab-glass-bg: rgba(11, 17, 22, 0.81);
-  --tab-glass-hover-bg: rgba(17, 28, 36, 0.87);
-  --tab-glass-active-bg: rgba(23, 38, 49, 0.91);
-  --tab-sel-bg: linear-gradient(135deg, rgba(24, 80, 108, 0.95), rgba(14, 51, 70, 0.97));
-  --tab-sel-hover-bg: linear-gradient(135deg, rgba(30, 94, 126, 0.96), rgba(18, 62, 84, 0.97));
-  --tab-stroke: rgba(142, 198, 222, 0.26);
-  --tab-hover-stroke: rgba(172, 220, 240, 0.56);
-  --tab-sel-stroke: #82d0ee;
-  --tab-sel-hover-stroke: #b0e4f8;
-  --tab-spine: rgba(96, 174, 208, 0.52);
-  --tab-sel-spine: #d8f4ff;
-  --tab-sel-sub-ink: #cfe9f4;
-  --sel-text-shadow: 0 1px 3px rgba(4, 18, 28, 0.55);
+  --line-strong: rgba(255, 255, 255, 0.38);
+  --line: rgba(255, 255, 255, 0.24);
+  --line-soft: rgba(255, 255, 255, 0.16);
+  --line-hair: rgba(255, 255, 255, 0.05);
 
-  --pill-glass-bg: rgba(11, 17, 22, 0.81);
-  --pill-glass-hover-bg: rgba(17, 28, 36, 0.87);
-  --pill-glass-active-bg: rgba(23, 38, 49, 0.91);
-  --pill-sel-bg: linear-gradient(135deg, rgba(24, 80, 108, 0.95), rgba(14, 51, 70, 0.97));
-  --pill-sel-hover-bg: linear-gradient(135deg, rgba(30, 94, 126, 0.96), rgba(18, 62, 84, 0.97));
-  --pill-stroke: rgba(142, 198, 222, 0.26);
-  --pill-hover-stroke: rgba(172, 220, 240, 0.56);
-  --pill-sel-stroke: #82d0ee;
-  --pill-sel-hover-stroke: #b0e4f8;
-  --pill-sel-en-ink: #c8e6f2;
-  --pill-sel-desc-ink: #b6dbe9;
-
-  --conn-main: #14465e;
-  --conn-aux: rgba(24, 82, 110, 0.72);
-  --scroll-thumb: #113d52;
-  --scroll-thumb-hover: #1a5673;
+  --ink: #f3f6fb;
+  --ink-body: #dde3ee;
+  --ink-soft: #bdc6d4;
+  --ink-mute: #9aa6b8;
+  --btn-ink: #ffffff;
+  --btn-sub-ink: rgba(255, 255, 255, 0.80);
+  --btn-outline: rgba(255, 255, 255, 0.34);
   --footer-ink: #d4ebf2;
-  --footer-shadow: 0 1px 6px rgba(4, 18, 22, 0.92);
-  --mobile-drawer-bg: rgba(10, 16, 21, 0.93);
+  --footer-shadow: 0 1px 6px rgba(6, 10, 20, 0.90);
+
+  --tab-backdrop: blur(9px) saturate(145%);
+  --pill-backdrop: blur(9px) saturate(145%);
+  --tab-glass-bg: rgba(1, 16, 30, 0.78);
+  --tab-glass-hover-bg: rgba(15, 30, 44, 0.84);
+  --tab-glass-active-bg: rgba(27, 42, 56, 0.88);
+  --pill-glass-bg: rgba(1, 16, 30, 0.78);
+  --pill-glass-hover-bg: rgba(15, 30, 44, 0.84);
+  --pill-glass-active-bg: rgba(27, 42, 56, 0.88);
+  --mobile-drawer-bg: rgba(1, 16, 30, 0.9);
+
+  --tab-stroke: rgba(108, 171, 203, 0.3);
+  --tab-hover-stroke: rgba(108, 171, 203, 0.6);
+  --tab-spine: rgba(108, 171, 203, 0.54);
+  --pill-stroke: rgba(108, 171, 203, 0.3);
+  --pill-hover-stroke: rgba(108, 171, 203, 0.6);
+
+  --tab-ink: #e8ecf2;
+  --tab-sub-ink: rgba(198, 206, 218, 0.84);
+  --tab-sub-hover-ink: #e8ecf2;
+  --pill-zh-ink: #e8ecf2;
+  --pill-en-ink: rgba(198, 206, 218, 0.8);
+  --pill-desc-ink: rgba(198, 206, 218, 0.74);
+
+  --tab-sel-bg: linear-gradient(135deg, rgba(24, 47, 57, 0.64), rgba(1, 13, 25, 0.66));
+  --tab-sel-hover-bg: linear-gradient(135deg, rgba(38, 61, 71, 0.66), rgba(13, 25, 37, 0.67));
+  --pill-sel-bg: linear-gradient(135deg, rgba(24, 47, 57, 0.64), rgba(1, 13, 25, 0.66));
+  --pill-sel-hover-bg: linear-gradient(135deg, rgba(38, 61, 71, 0.66), rgba(13, 25, 37, 0.67));
+
+  --tab-sel-stroke: #7aeef0;
+  --tab-sel-hover-stroke: #8effff;
+  --pill-sel-stroke: #7aeef0;
+  --pill-sel-hover-stroke: #8effff;
+  --tab-sel-spine: #a3f4ff;
+
+  --tab-sel-ink: #ffffff;
+  --tab-sel-sub-ink: #cfe9f4;
+  --pill-sel-zh-ink: #ffffff;
+  --pill-sel-en-ink: #cfe9f4;
+  --pill-sel-desc-ink: rgba(207, 233, 244, 0.88);
 }
 
-/* ==========================================================================
-   Ar tonelico III (AT3) — 深暮紫系 (#552b46 / #451c36)，融合绯霞暮色背景
-   ========================================================================== */
 html[data-series="at3"] {
-  --canvas-base: #331c2b;
-  --bg-veil-paint: radial-gradient(
-    circle at 50% 36%,
-    rgba(238, 210, 224, 0.14) 0%,
-    rgba(38, 14, 29, 0.38) 100%
-  );
+  --canvas-base: #2b202c;
+  --bg-overscan: -20px;
+  --bg-filter: blur(4px) saturate(98%);
+  --bg-art-opacity: 0.9;
+  --bg-veil-paint: radial-gradient(circle at 50% 36%, rgba(74, 45, 78, 0.42) 0%, rgba(33, 23, 32, 0.63) 100%);
+  --bg-grain-opacity: 0.036;
 
-  --surface: rgba(249, 244, 247, 0.88);
-  --surface-2: rgba(236, 224, 232, 0.72);
-  --surface-3: rgba(226, 211, 221, 0.78);
-  --bar: #451c36;      /* 指定深暮紫主色 #451c36 */
-  --bar-2: #552b46;    /* 指定暮紫阶 #552b46 */
-  --bar-3: #6c3859;
-  --ink: #24101c;
-  --ink-body: #361d2c;
-  --ink-soft: #533246;
-  --ink-mute: #755066;
-  --line-strong: #9f7990;
-  --line: #c4a7b9;
-  --line-soft: rgba(188, 156, 176, 0.58);
-  --line-hair: rgba(200, 172, 190, 0.45);
+  --panel-glass-bg: rgba(10, 6, 8, 0.83);
+  --panel-backdrop: blur(9px) saturate(150%);
+  --surface: rgba(10, 6, 8, 0.89);
+  --surface-2: rgba(255, 255, 255, 0.06);
+  --surface-3: rgba(255, 255, 255, 0.13);
 
-  /* 正文窗微压为暖暮雾粉灰，压住刺眼白感 */
-  --panel-glass-bg: rgba(245, 239, 243, 0.83);
+  --panel-frame: #e594bf;
+  --bar: #552b46;
+  --bar-2: #552b46;
+  --bar-3: #6b415c;
+  --conn-main: #e594bf;
+  --conn-aux: rgba(229, 148, 191, 0.68);
+  --scroll-thumb: #e2aec8;
+  --scroll-thumb-hover: #ca96b0;
 
-  /* 侧栏与底栏：近黑暮炭底色 + #552b46/#451c36 选中态 */
-  --tab-glass-bg: rgba(19, 13, 17, 0.81);
-  --tab-glass-hover-bg: rgba(31, 20, 27, 0.87);
-  --tab-glass-active-bg: rgba(42, 26, 36, 0.91);
-  --tab-sel-bg: linear-gradient(135deg, rgba(85, 43, 70, 0.96), rgba(69, 28, 54, 0.97));
-  --tab-sel-hover-bg: linear-gradient(135deg, rgba(98, 50, 81, 0.97), rgba(80, 34, 63, 0.98));
-  --tab-stroke: rgba(214, 170, 194, 0.26);
-  --tab-hover-stroke: rgba(236, 194, 216, 0.56);
-  --tab-sel-stroke: #e2aec8;
-  --tab-sel-hover-stroke: #f4cee1;
-  --tab-spine: rgba(192, 132, 166, 0.52);
-  --tab-sel-spine: #fae0ed;
-  --tab-sel-sub-ink: #edd4e1;
-  --sel-text-shadow: 0 1px 3px rgba(20, 6, 15, 0.55);
+  --line-strong: rgba(255, 255, 255, 0.38);
+  --line: rgba(255, 255, 255, 0.24);
+  --line-soft: rgba(255, 255, 255, 0.16);
+  --line-hair: rgba(255, 255, 255, 0.05);
 
-  --pill-glass-bg: rgba(19, 13, 17, 0.81);
-  --pill-glass-hover-bg: rgba(31, 20, 27, 0.87);
-  --pill-glass-active-bg: rgba(42, 26, 36, 0.91);
-  --pill-sel-bg: linear-gradient(135deg, rgba(85, 43, 70, 0.96), rgba(69, 28, 54, 0.97));
-  --pill-sel-hover-bg: linear-gradient(135deg, rgba(98, 50, 81, 0.97), rgba(80, 34, 63, 0.98));
-  --pill-stroke: rgba(214, 170, 194, 0.26);
-  --pill-hover-stroke: rgba(236, 194, 216, 0.56);
-  --pill-sel-stroke: #e2aec8;
-  --pill-sel-hover-stroke: #f4cee1;
-  --pill-sel-en-ink: #ead0de;
-  --pill-sel-desc-ink: #dcbed0;
-
-  --conn-main: #451c36;
-  --conn-aux: rgba(85, 43, 70, 0.72);
-  --scroll-thumb: #451c36;
-  --scroll-thumb-hover: #5c2e4c;
+  --ink: #f3f6fb;
+  --ink-body: #dde3ee;
+  --ink-soft: #bdc6d4;
+  --ink-mute: #9aa6b8;
+  --btn-ink: #ffffff;
+  --btn-sub-ink: rgba(255, 255, 255, 0.80);
+  --btn-outline: rgba(255, 255, 255, 0.34);
   --footer-ink: #f0dce7;
-  --footer-shadow: 0 1px 6px rgba(24, 8, 18, 0.88);
-  --mobile-drawer-bg: rgba(18, 12, 16, 0.93);
+  --footer-shadow: 0 1px 6px rgba(6, 10, 20, 0.90);
+
+  --tab-backdrop: blur(9px) saturate(145%);
+  --pill-backdrop: blur(9px) saturate(145%);
+  --tab-glass-bg: rgba(10, 6, 8, 0.78);
+  --tab-glass-hover-bg: rgba(24, 20, 22, 0.84);
+  --tab-glass-active-bg: rgba(36, 32, 34, 0.88);
+  --pill-glass-bg: rgba(10, 6, 8, 0.78);
+  --pill-glass-hover-bg: rgba(24, 20, 22, 0.84);
+  --pill-glass-active-bg: rgba(36, 32, 34, 0.88);
+  --mobile-drawer-bg: rgba(10, 6, 8, 0.9);
+
+  --tab-stroke: rgba(165, 64, 120, 0.28);
+  --tab-hover-stroke: rgba(165, 64, 120, 0.58);
+  --tab-spine: rgba(165, 64, 120, 0.52);
+  --pill-stroke: rgba(165, 64, 120, 0.28);
+  --pill-hover-stroke: rgba(165, 64, 120, 0.58);
+
+  --tab-ink: #e8ecf2;
+  --tab-sub-ink: rgba(198, 206, 218, 0.84);
+  --tab-sub-hover-ink: #e8ecf2;
+  --pill-zh-ink: #e8ecf2;
+  --pill-en-ink: rgba(198, 206, 218, 0.8);
+  --pill-desc-ink: rgba(198, 206, 218, 0.74);
+
+  --tab-sel-bg: linear-gradient(135deg, rgba(70, 27, 42, 0.63), rgba(9, 2, 8, 0.65));
+  --tab-sel-hover-bg: linear-gradient(135deg, rgba(84, 41, 56, 0.65), rgba(21, 14, 20, 0.66));
+  --pill-sel-bg: linear-gradient(135deg, rgba(70, 27, 42, 0.63), rgba(9, 2, 8, 0.65));
+  --pill-sel-hover-bg: linear-gradient(135deg, rgba(84, 41, 56, 0.65), rgba(21, 14, 20, 0.66));
+
+  --tab-sel-stroke: #e594bf;
+  --tab-sel-hover-stroke: #f9a8d3;
+  --pill-sel-stroke: #e594bf;
+  --pill-sel-hover-stroke: #f9a8d3;
+  --tab-sel-spine: #ffb8de;
+
+  --tab-sel-ink: #ffffff;
+  --tab-sel-sub-ink: #edd4e1;
+  --pill-sel-zh-ink: #ffffff;
+  --pill-sel-en-ink: #edd4e1;
+  --pill-sel-desc-ink: rgba(237, 212, 225, 0.88);
 }
+
