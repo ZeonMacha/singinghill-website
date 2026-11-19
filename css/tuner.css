@@ -1,0 +1,323 @@
+/* ==========================================================================
+   内置实时调色板样式 (css/tuner.css)
+   独立悬浮工具窗，不影响主站任何原有布局与样式。
+   ========================================================================== */
+
+.sh-tuner {
+  position: fixed;
+  top: 14px;
+  right: 16px;
+  z-index: 10000;
+  width: 336px;
+  max-height: calc(100dvh - 28px);
+  display: flex;
+  flex-direction: column;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(18, 20, 26, 0.90);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.42), 0 0 0 1px rgba(0, 0, 0, 0.35);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  backdrop-filter: blur(20px) saturate(150%);
+  color: #e8ecf4;
+  font: 400 12px/1.4 var(--font-zh);
+  user-select: none;
+}
+.sh-tuner.is-dock-left {
+  right: auto;
+  left: 16px;
+}
+.sh-tuner.is-minimized {
+  width: auto;
+  max-height: none;
+}
+.sh-tuner.is-minimized .sh-tuner-series,
+.sh-tuner.is-minimized .sh-tuner-body,
+.sh-tuner.is-minimized .sh-tuner-foot {
+  display: none;
+}
+
+/* 顶栏（可拖拽） */
+.sh-tuner-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 9px 11px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  cursor: move;
+}
+.sh-tuner.is-minimized .sh-tuner-head {
+  border-bottom: 0;
+  padding: 7px 10px;
+}
+.sh-tuner-title {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font: 700 12px/1 var(--font-zh);
+  letter-spacing: 0.04em;
+  color: #ffffff;
+}
+.sh-tuner-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--bar, #6b5696);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.22);
+}
+.sh-tuner-head-btns {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.sh-tbtn {
+  padding: 4px 7px;
+  border-radius: 3px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.07);
+  color: #dbe2ee;
+  font: 500 11px/1.1 var(--font-zh);
+  cursor: pointer;
+  transition: background 120ms ease, border-color 120ms ease, color 120ms ease;
+}
+.sh-tbtn:hover {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.34);
+  color: #ffffff;
+}
+.sh-tbtn:active {
+  background: rgba(255, 255, 255, 0.25);
+}
+.sh-tbtn-primary {
+  background: rgba(255, 255, 255, 0.90);
+  border-color: #ffffff;
+  color: #131720;
+  font-weight: 700;
+}
+.sh-tbtn-primary:hover {
+  background: #ffffff;
+  color: #0b0e14;
+}
+
+/* 顶部作品页切换条 */
+.sh-tuner-series {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 4px;
+  padding: 7px 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(0, 0, 0, 0.22);
+}
+.sh-series-btn {
+  padding: 5px 4px;
+  border-radius: 3px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(224, 232, 244, 0.78);
+  font: 600 11px/1.15 var(--font-zh);
+  text-align: center;
+  cursor: pointer;
+  transition: all 120ms ease;
+}
+.sh-series-btn:hover {
+  background: rgba(255, 255, 255, 0.13);
+  color: #ffffff;
+}
+.sh-series-btn[aria-pressed="true"] {
+  background: #ffffff;
+  border-color: #ffffff;
+  color: #12161f;
+}
+
+/* 滚动控制区 */
+.sh-tuner-body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 6px 10px 10px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.28) transparent;
+}
+.sh-tuner-body::-webkit-scrollbar { width: 5px; }
+.sh-tuner-body::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.28);
+  border-radius: 3px;
+}
+
+/* 分组折叠面板 */
+.sh-group {
+  margin-bottom: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.03);
+  overflow: hidden;
+}
+.sh-group:last-child {
+  margin-bottom: 0;
+}
+.sh-group-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 7px 9px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #f0f4fa;
+  font: 700 11.5px/1.2 var(--font-zh);
+  letter-spacing: 0.02em;
+  text-align: left;
+  cursor: pointer;
+}
+.sh-group-head:hover {
+  background: rgba(255, 255, 255, 0.09);
+}
+.sh-group-arrow {
+  font: 10px/1 var(--font-ui);
+  color: rgba(255, 255, 255, 0.55);
+  transition: transform 140ms ease;
+}
+.sh-group.is-closed .sh-group-arrow {
+  transform: rotate(-90deg);
+}
+.sh-group.is-closed .sh-group-content {
+  display: none;
+}
+.sh-group-content {
+  padding: 7px 9px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+/* 快捷预置小按钮行 */
+.sh-preset-row {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding-bottom: 4px;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.10);
+}
+.sh-preset-hint {
+  font-size: 10.5px;
+  color: rgba(210, 220, 234, 0.65);
+  margin-right: auto;
+}
+
+/* 单行控件 */
+.sh-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.sh-row-inline {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.sh-label {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  font-size: 11px;
+  color: rgba(226, 233, 244, 0.88);
+}
+.sh-val-readout {
+  font: 400 10.5px/1 var(--font-ui);
+  color: rgba(196, 208, 226, 0.72);
+}
+
+.sh-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.sh-color-swatch {
+  -webkit-appearance: none;
+  appearance: none;
+  flex: 0 0 26px;
+  width: 26px;
+  height: 24px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.30);
+  border-radius: 3px;
+  background: none;
+  cursor: pointer;
+  overflow: hidden;
+}
+.sh-color-swatch::-webkit-color-swatch-wrapper { padding: 0; }
+.sh-color-swatch::-webkit-color-swatch { border: 0; border-radius: 2px; }
+.sh-color-swatch::-moz-color-swatch { border: 0; border-radius: 2px; }
+
+.sh-hex-input {
+  width: 72px;
+  height: 24px;
+  padding: 0 6px;
+  border-radius: 3px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(0, 0, 0, 0.35);
+  color: #f4f7fc;
+  font: 400 11px/22px var(--font-ui);
+  letter-spacing: 0.02em;
+  text-transform: lowercase;
+  user-select: text;
+}
+.sh-hex-input:focus {
+  outline: 1px solid rgba(255, 255, 255, 0.65);
+  border-color: rgba(255, 255, 255, 0.65);
+}
+
+.sh-range {
+  flex: 1;
+  min-width: 0;
+  height: 4px;
+  accent-color: #dfe6f2;
+  cursor: pointer;
+}
+.sh-alpha-tag {
+  flex: 0 0 34px;
+  text-align: right;
+  font: 400 10.5px/1 var(--font-ui);
+  color: rgba(206, 216, 232, 0.78);
+}
+
+/* 底部操作栏 */
+.sh-tuner-foot {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 8px 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(0, 0, 0, 0.26);
+}
+.sh-foot-row {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.sh-foot-row .sh-tbtn {
+  flex: 1;
+  text-align: center;
+  padding: 5px 6px;
+}
+.sh-toast {
+  font-size: 10.5px;
+  color: #9be8c8;
+  text-align: center;
+  min-height: 14px;
+}
+.sh-toast:empty {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .sh-tuner {
+    top: auto;
+    bottom: 8px;
+    right: 8px;
+    left: 8px;
+    width: auto;
+    max-height: 56dvh;
+  }
+}
