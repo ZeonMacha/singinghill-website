@@ -1,6 +1,6 @@
 /* ==========================================================================
-   内置实时调色板样式 (css/tuner.css)
-   独立悬浮工具窗，不影响主站任何原有布局与样式。
+   独立调色插件样式表 (tools/tuner/tuner.css)
+   通过 start-tuner.bat / tools/tuner/server.py 在本地预览时动态挂载，与主站 HTML 完全分离。
    ========================================================================== */
 
 .sh-tuner {
@@ -8,14 +8,14 @@
   top: 14px;
   right: 16px;
   z-index: 10000;
-  width: 336px;
+  width: 348px;
   max-height: calc(100dvh - 28px);
   display: flex;
   flex-direction: column;
   border-radius: 6px;
   border: 1px solid rgba(255, 255, 255, 0.22);
-  background: rgba(18, 20, 26, 0.90);
-  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.42), 0 0 0 1px rgba(0, 0, 0, 0.35);
+  background: rgba(14, 16, 22, 0.92);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.52), 0 0 0 1px rgba(0, 0, 0, 0.45);
   -webkit-backdrop-filter: blur(20px) saturate(150%);
   backdrop-filter: blur(20px) saturate(150%);
   color: #e8ecf4;
@@ -58,11 +58,20 @@
   letter-spacing: 0.04em;
   color: #ffffff;
 }
+.sh-tuner-badge {
+  padding: 2px 5px;
+  border-radius: 2px;
+  border: 1px solid rgba(155, 232, 200, 0.35);
+  background: rgba(155, 232, 200, 0.12);
+  color: #a6f2d0;
+  font: 500 10px/1 var(--font-zh);
+  letter-spacing: 0.02em;
+}
 .sh-tuner-dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: var(--bar, #6b5696);
+  background: var(--panel-frame, #c7aef4);
   box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.22);
 }
 .sh-tuner-head-btns {
@@ -88,6 +97,10 @@
 .sh-tbtn:active {
   background: rgba(255, 255, 255, 0.25);
 }
+.sh-tbtn:disabled {
+  opacity: 0.55;
+  cursor: wait;
+}
 .sh-tbtn-primary {
   background: rgba(255, 255, 255, 0.90);
   border-color: #ffffff;
@@ -98,6 +111,17 @@
   background: #ffffff;
   color: #0b0e14;
 }
+.sh-tbtn-save {
+  background: #9be8c8;
+  border-color: #b8f4db;
+  color: #0d1f18;
+  font-weight: 700;
+}
+.sh-tbtn-save:hover {
+  background: #b5f2d8;
+  border-color: #d6faeb;
+  color: #07150f;
+}
 
 /* 顶部作品页切换条 */
 .sh-tuner-series {
@@ -106,7 +130,7 @@
   gap: 4px;
   padding: 7px 10px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.10);
-  background: rgba(0, 0, 0, 0.22);
+  background: rgba(0, 0, 0, 0.24);
 }
 .sh-series-btn {
   padding: 5px 4px;
@@ -188,6 +212,15 @@
   display: flex;
   flex-direction: column;
   gap: 7px;
+}
+
+.sh-subhead {
+  margin-top: 3px;
+  padding-top: 6px;
+  border-top: 1px dashed rgba(255, 255, 255, 0.12);
+  font: 600 10.5px/1.2 var(--font-zh);
+  color: #b9c9e2;
+  letter-spacing: 0.04em;
 }
 
 /* 快捷预置小按钮行 */

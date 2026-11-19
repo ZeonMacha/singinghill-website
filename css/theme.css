@@ -1,4 +1,4 @@
-/* 歌颂之丘 — 磨砂背景与三作主题色样式表 (由内置调色板导出，可直接覆盖 css/theme.css) */
+/* 歌颂之丘 — 磨砂背景、三作主题色与外框分层样式表 (css/theme.css) */
 
 :root {
   --canvas-base: #cfd5de;
@@ -22,6 +22,14 @@
   --conn-aux: rgba(35, 39, 48, 0.68);
   --scroll-thumb: #232730;
   --scroll-thumb-hover: #3b3f48;
+
+  --panel-guard-color: rgba(255, 255, 255, 0.9);
+  --panel-guard-width: 4.8px;
+  --panel-shadow-y: 26px;
+  --panel-shadow-blur: 25px;
+  --panel-shadow-deep: rgba(0, 0, 0, 0.26);
+  --panel-shadow-contact: rgba(0, 0, 0, 0.3);
+  --conn-shadow-color: rgba(0, 0, 0, 0.28);
 
   --line-strong: rgba(148, 156, 169, 0.82);
   --line: rgba(148, 156, 169, 0.68);
@@ -77,6 +85,15 @@
   --pill-sel-zh-ink: #ffffff;
   --pill-sel-en-ink: #dfe6f0;
   --pill-sel-desc-ink: rgba(223, 230, 240, 0.88);
+
+  --nav-guard-color: rgba(4, 6, 13, 0.92);
+  --nav-idle-guard-color: rgba(4, 6, 13, 0.782);
+  --nav-idle-shadow: rgba(0, 0, 0, 0.44);
+  --nav-idle-contact: rgba(0, 0, 0, 0.5);
+  --nav-sel-shadow: rgba(0, 0, 0, 0.7);
+  --nav-sel-contact: rgba(0, 0, 0, 0.8);
+  --nav-sel-glow: rgba(223, 229, 238, 0.32);
+
   --tab-strip: rgba(255, 255, 255, 0.08);
   --tab-hover-strip: rgba(255, 255, 255, 0.14);
   --tab-sel-strip: rgba(255, 255, 255, 0.18);
@@ -115,6 +132,8 @@ html[data-series="at3"] .bg-neutral { opacity: 0; }
 .panel, .tab, .pill { isolation: auto; }
 .panel { z-index: 2; }
 .tab, .pill { z-index: 1; }
+.pill { transition: color var(--fast) var(--ease), transform var(--fast) var(--ease); }
+.pill[aria-selected="true"] { transform: translateY(-1.5px); }
 .panel-glass, .tab-glass, .pill-glass { position: absolute; inset: 0; z-index: 0; pointer-events: none; transition: background var(--fast) var(--ease), backdrop-filter var(--fast) var(--ease), -webkit-backdrop-filter var(--fast) var(--ease); }
 .panel-glass { background: var(--panel-glass-bg); -webkit-backdrop-filter: var(--panel-backdrop); backdrop-filter: var(--panel-backdrop); }
 #panel-fill { fill: transparent !important; }
@@ -129,15 +148,32 @@ html[data-series="at3"] .bg-neutral { opacity: 0; }
 .pill[aria-selected="true"] .pill-glass { background: var(--pill-sel-bg); }
 .pill[aria-selected="true"]:hover .pill-glass { background: var(--pill-sel-hover-bg); }
 
-/* ── 3. HUD 组件色彩变量绑定 ── */
-.connector-layer { filter: drop-shadow(0 0 1.2px rgba(255, 255, 255, 0.45)) drop-shadow(0 1px 2px rgba(8, 10, 18, 0.32)); }
+/* ── 3. HUD 外框分层与色彩绑定（变体 2：黑色护边 + 下沉纯黑阴影 + 去复线 + 激活内收微光） ── */
+.connector-layer { filter: drop-shadow(0 5px 8px var(--conn-shadow-color, rgba(0, 0, 0, 0.62))); }
+.connector-guard { fill: none; stroke: var(--panel-guard-color, rgba(4, 6, 13, 0.92)); stroke-width: calc(var(--panel-guard-width, 4.8px) + 0.2px); stroke-linejoin: miter; stroke-linecap: butt; transition: stroke 260ms var(--ease); }
 #connector-aux { stroke: var(--conn-aux); transition: stroke 260ms var(--ease); }
 #connector-line { stroke: var(--conn-main); transition: stroke 260ms var(--ease); }
 #connector-caps { fill: var(--conn-main); transition: fill 260ms var(--ease); }
-.tab-frame .tab-bg { fill: transparent; stroke: var(--tab-stroke); }
+
+.panel-shadow-deep { filter: drop-shadow(0 var(--panel-shadow-y, 26px) var(--panel-shadow-blur, 25px) var(--panel-shadow-deep, rgba(0, 0, 0, 0.70))); }
+.panel-shadow-contact { filter: drop-shadow(0 5px 7px var(--panel-shadow-contact, rgba(0, 0, 0, 0.82))); }
+.panel-guard { stroke: var(--panel-guard-color, rgba(4, 6, 13, 0.92)); stroke-width: var(--panel-guard-width, 4.8px); transition: stroke 260ms var(--ease); }
+
+.box-shadow-deep { filter: drop-shadow(0 6px 8px var(--nav-idle-shadow, rgba(0, 0, 0, 0.44))); }
+.box-shadow-contact { filter: drop-shadow(0 2px 4px var(--nav-idle-contact, rgba(0, 0, 0, 0.50))); }
+.box-guard { stroke: var(--nav-idle-guard-color, rgba(4, 6, 13, 0.78)); stroke-width: 2.6; }
+.tab[aria-selected="true"] .box-shadow-deep,
+.pill[aria-selected="true"] .box-shadow-deep { filter: drop-shadow(0 13px 13px var(--nav-sel-shadow, rgba(0, 0, 0, 0.70))); }
+.tab[aria-selected="true"] .box-shadow-contact,
+.pill[aria-selected="true"] .box-shadow-contact { filter: drop-shadow(0 2px 5px var(--nav-sel-contact, rgba(0, 0, 0, 0.80))); }
+.tab[aria-selected="true"] .box-guard,
+.pill[aria-selected="true"] .box-guard { stroke: var(--nav-guard-color, rgba(4, 6, 13, 0.92)); stroke-width: 3.8; }
+.box-inner-glow { fill: none; stroke: var(--nav-sel-glow, rgba(223, 229, 238, 0.32)); stroke-width: 9; filter: blur(3.5px); }
+
+.tab-frame .tab-bg { fill: transparent; stroke: var(--tab-stroke); stroke-width: 1.35; }
 .tab:hover .tab-frame .tab-bg { fill: transparent; stroke: var(--tab-hover-stroke); }
 .tab:active .tab-frame .tab-bg { fill: transparent; }
-.tab[aria-selected="true"] .tab-frame .tab-bg { fill: transparent; stroke: var(--tab-sel-stroke); }
+.tab[aria-selected="true"] .tab-frame .tab-bg { fill: transparent; stroke: var(--tab-sel-stroke); stroke-width: 2; }
 .tab[aria-selected="true"]:hover .tab-frame .tab-bg { fill: transparent; stroke: var(--tab-sel-hover-stroke); }
 .tab-frame .tab-strip { fill: var(--tab-strip); }
 .tab:hover .tab-frame .tab-strip { fill: var(--tab-hover-strip); }
@@ -165,13 +201,12 @@ html[data-series="at3"] .bg-neutral { opacity: 0; }
 .hud-scroll-thumb:hover, .hud-scrollbar.is-dragging .hud-scroll-thumb { background: var(--scroll-thumb-hover); }
 .hud-scroll-thumb::before { background: linear-gradient(180deg, var(--scroll-grip) 0 1px, transparent 1px 3px, var(--scroll-grip) 3px 4px, transparent 4px 6px, var(--scroll-grip) 6px 7px); }
 .hud-scroll-thumb:hover::before, .hud-scrollbar.is-dragging .hud-scroll-thumb::before { background: linear-gradient(180deg, var(--scroll-grip-hover) 0 1px, transparent 1px 3px, var(--scroll-grip-hover) 3px 4px, transparent 4px 6px, var(--scroll-grip-hover) 6px 7px); }
-.pill-frame .pill-bg { fill: transparent; stroke: var(--pill-stroke); }
+.pill-frame .pill-bg { fill: transparent; stroke: var(--pill-stroke); stroke-width: 1.35; }
 .pill:hover .pill-frame .pill-bg { fill: transparent; stroke: var(--pill-hover-stroke); }
 .pill:active .pill-frame .pill-bg { fill: transparent; }
-.pill[aria-selected="true"] .pill-frame .pill-bg { fill: transparent; stroke: var(--pill-sel-stroke); }
+.pill[aria-selected="true"] .pill-frame .pill-bg { fill: transparent; stroke: var(--pill-sel-stroke); stroke-width: 2; }
 .pill[aria-selected="true"]:hover .pill-frame .pill-bg { fill: transparent; stroke: var(--pill-sel-hover-stroke); }
-.pill-frame .pill-inner { stroke: var(--pill-inner-stroke); }
-.pill[aria-selected="true"] .pill-frame .pill-inner { stroke: var(--pill-sel-inner-stroke); }
+.pill-frame .pill-inner { display: none; }
 .pill-label { border-bottom-color: var(--pill-divider); }
 .pill[aria-selected="true"] .pill-label { border-bottom-color: var(--pill-sel-divider); }
 .pill-en { color: var(--pill-en-ink); text-shadow: 0 1px 2px rgba(4, 6, 12, 0.36); }
@@ -213,6 +248,14 @@ html[data-series="at1"] {
   --conn-aux: rgba(199, 174, 244, 0.68);
   --scroll-thumb: #8a79a4;
   --scroll-thumb-hover: #a291bc;
+
+  --panel-guard-color: rgba(4, 6, 13, 0.92);
+  --panel-guard-width: 4.8px;
+  --panel-shadow-y: 26px;
+  --panel-shadow-blur: 25px;
+  --panel-shadow-deep: rgba(0, 0, 0, 0.7);
+  --panel-shadow-contact: rgba(0, 0, 0, 0.82);
+  --conn-shadow-color: rgba(0, 0, 0, 0.62);
 
   --line-strong: rgba(255, 255, 255, 0.38);
   --line: rgba(255, 255, 255, 0.24);
@@ -268,6 +311,14 @@ html[data-series="at1"] {
   --pill-sel-zh-ink: #ffffff;
   --pill-sel-en-ink: #dcd6f2;
   --pill-sel-desc-ink: rgba(220, 214, 242, 0.88);
+
+  --nav-guard-color: rgba(4, 6, 13, 0.92);
+  --nav-idle-guard-color: rgba(4, 6, 13, 0.782);
+  --nav-idle-shadow: rgba(0, 0, 0, 0.44);
+  --nav-idle-contact: rgba(0, 0, 0, 0.5);
+  --nav-sel-shadow: rgba(0, 0, 0, 0.7);
+  --nav-sel-contact: rgba(0, 0, 0, 0.8);
+  --nav-sel-glow: rgba(199, 174, 244, 0.32);
 }
 
 html[data-series="at2"] {
@@ -292,6 +343,14 @@ html[data-series="at2"] {
   --conn-aux: rgba(122, 238, 240, 0.68);
   --scroll-thumb: #90bfd5;
   --scroll-thumb-hover: #78a7bd;
+
+  --panel-guard-color: rgba(4, 6, 13, 0.92);
+  --panel-guard-width: 4.8px;
+  --panel-shadow-y: 26px;
+  --panel-shadow-blur: 25px;
+  --panel-shadow-deep: rgba(0, 0, 0, 0.7);
+  --panel-shadow-contact: rgba(0, 0, 0, 0.82);
+  --conn-shadow-color: rgba(0, 0, 0, 0.62);
 
   --line-strong: rgba(255, 255, 255, 0.38);
   --line: rgba(255, 255, 255, 0.24);
@@ -347,6 +406,14 @@ html[data-series="at2"] {
   --pill-sel-zh-ink: #ffffff;
   --pill-sel-en-ink: #cfe9f4;
   --pill-sel-desc-ink: rgba(207, 233, 244, 0.88);
+
+  --nav-guard-color: rgba(4, 6, 13, 0.92);
+  --nav-idle-guard-color: rgba(4, 6, 13, 0.782);
+  --nav-idle-shadow: rgba(0, 0, 0, 0.44);
+  --nav-idle-contact: rgba(0, 0, 0, 0.5);
+  --nav-sel-shadow: rgba(0, 0, 0, 0.7);
+  --nav-sel-contact: rgba(0, 0, 0, 0.8);
+  --nav-sel-glow: rgba(122, 238, 240, 0.32);
 }
 
 html[data-series="at3"] {
@@ -371,6 +438,14 @@ html[data-series="at3"] {
   --conn-aux: rgba(229, 148, 191, 0.68);
   --scroll-thumb: #e2aec8;
   --scroll-thumb-hover: #ca96b0;
+
+  --panel-guard-color: rgba(4, 6, 13, 0.92);
+  --panel-guard-width: 4.8px;
+  --panel-shadow-y: 26px;
+  --panel-shadow-blur: 25px;
+  --panel-shadow-deep: rgba(0, 0, 0, 0.7);
+  --panel-shadow-contact: rgba(0, 0, 0, 0.82);
+  --conn-shadow-color: rgba(0, 0, 0, 0.62);
 
   --line-strong: rgba(255, 255, 255, 0.38);
   --line: rgba(255, 255, 255, 0.24);
@@ -426,5 +501,13 @@ html[data-series="at3"] {
   --pill-sel-zh-ink: #ffffff;
   --pill-sel-en-ink: #edd4e1;
   --pill-sel-desc-ink: rgba(237, 212, 225, 0.88);
+
+  --nav-guard-color: rgba(4, 6, 13, 0.92);
+  --nav-idle-guard-color: rgba(4, 6, 13, 0.782);
+  --nav-idle-shadow: rgba(0, 0, 0, 0.44);
+  --nav-idle-contact: rgba(0, 0, 0, 0.5);
+  --nav-sel-shadow: rgba(0, 0, 0, 0.7);
+  --nav-sel-contact: rgba(0, 0, 0, 0.8);
+  --nav-sel-glow: rgba(229, 148, 191, 0.32);
 }
 

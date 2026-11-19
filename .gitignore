@@ -1,12 +1,16 @@
-# 只跟踪网页本身。本地素材、拆包图、工具和预览缓存留在本机。
+# 只跟踪网页本身与独立调色插件。本地素材、拆包图、缓存和 Python 字节码留在本机。
 /*
 !/.gitignore
 !/README.md
 !/index.html
+!/start-tuner.bat
 !/css/
 !/js/
+!/tools/
 !/images/
 /images/*
 !/images/at1.jpg
 !/images/at2.jpg
 !/images/at3.jpg
+__pycache__/
+*.py[cod]
