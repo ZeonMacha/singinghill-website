@@ -5,3 +5,8 @@
 !/index.html
 !/css/
 !/js/
+!/images/
+/images/*
+!/images/at1.jpg
+!/images/at2.jpg
+!/images/at3.jpg
