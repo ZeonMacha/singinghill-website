@@ -1,0 +1,7 @@
+# 只跟踪网页本身。本地素材、拆包图、工具和预览缓存留在本机。
+/*
+!/.gitignore
+!/README.md
+!/index.html
+!/css/
+!/js/

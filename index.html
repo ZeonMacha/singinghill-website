@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light" />
+  <meta name="theme-color" content="#ececec" />
+  <!-- 浏览器标签页标题：首次打开时显示，切换页面后由 js/main.js 更新。 -->
+  <title>歌颂之丘 — 本地化补丁发布站</title>
+  <link rel="stylesheet" href="css/style.css?v=28" />
+</head>
+<body>
+  <!--
+    ┌─────────────────────────────────────────────────────────┐
+    │ 文案修改入口                                            │
+    │ 1. 作品名、副标题、底部按钮、外部链接：js/content.js     │
+    │ 2. AT1 / AT2 正文、下载信息、人员名单：js/at1.js          │
+    │ 3. 页脚：js/content.js 中各作品的 footer                  │
+    │                                                         │
+    │ 本文件只负责页面骨架。正文不要写进空的 section，          │
+    │ 因为它会由 js/main.js 根据当前页面自动生成。              │
+    └─────────────────────────────────────────────────────────┘
+  -->
+
+  <!-- 无障碍跳转文字，仅在键盘聚焦时显示。 -->
+  <a class="skip-link" href="#page">跳到正文</a>
+
+  <div class="shell">
+    <div class="console">
+      <!-- 选中标签到正文左上斜切边的 HUD 连接线，位置由脚本计算。 -->
+      <svg class="connector-layer" id="connector-layer" aria-hidden="true">
+        <path id="connector-aux" d="" />
+        <path id="connector-line" d="" />
+        <path id="connector-caps" d="" />
+      </svg>
+      <!-- 桌面端左侧作品栏；手机端通过右上角按钮展开。 -->
+      <aside class="rail" id="series-menu">
+        <div class="mobile-menu-head">
+          <button class="menu-toggle" id="menu-toggle" type="button" aria-label="展开作品导航" aria-expanded="false" aria-controls="index-nav"><span class="menu-icon" aria-hidden="true"></span></button>
+        </div>
+        <!-- 作品按钮在 js/content.js 修改，由 js/main.js 自动生成。 -->
+        <nav class="tabs" id="index-nav" aria-label="作品"></nav>
+      </aside>
+
+      <!-- 中间正文窗口。 -->
+      <main class="panel">
+        <svg class="panel-layer panel-bg-svg" id="panel-bg-svg" aria-hidden="true">
+          <path id="panel-fill" d="" />
+        </svg>
+        <div class="panel-tab">
+          <!-- 当前“作品 / 页面”由 js/main.js 自动填入。 -->
+          <p class="panel-bar-title" id="bar-title"></p>
+        </div>
+        <span class="panel-hud" aria-hidden="true"></span>
+        <div class="panel-body" id="panel-body">
+          <!-- 不要直接在这里填写正文：切换页面时这里会被自动替换。 -->
+          <section id="page" aria-live="polite" tabindex="-1"></section>
+        </div>
+        <div class="hud-scrollbar is-hidden" id="hud-scrollbar" aria-hidden="true">
+          <div class="hud-scroll-track" id="hud-scroll-track">
+            <div class="hud-scroll-thumb" id="hud-scroll-thumb"></div>
+          </div>
+        </div>
+        <svg class="panel-layer panel-fg-svg" id="panel-fg-svg" aria-hidden="true">
+          <path id="panel-outline" d="" />
+          <g id="panel-armor"></g>
+          <g id="panel-accents"></g>
+        </svg>
+      </main>
+
+      <!-- 独立的底部按钮窗口。按钮文案在 js/content.js 的 SUBPAGES 修改。 -->
+      <div class="subnav-window">
+        <nav class="subnav" id="subnav" aria-label="页面"></nav>
+      </div>
+    </div>
+
+    <!-- 页脚随作品切换，在 js/content.js 的 footer 中修改。 -->
+    <footer class="site-footer">
+      <p class="footer-placeholder" id="site-footer-text"></p>
+    </footer>
+  </div>
+
+  <!-- 加载顺序不能调整：先文案，再页面内容，最后渲染与交互。 -->
+  <script src="js/content.js?v=2"></script>
+  <script src="js/at1.js?v=8"></script>
+  <script src="js/main.js?v=27"></script>
+</body>
+</html>
