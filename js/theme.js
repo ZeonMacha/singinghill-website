@@ -1,14 +1,11 @@
 /* ==========================================================================
-   磨砂背景舞台、多边形毛玻璃同步与变体 2 外框分层脚本 (js/theme.js)
+   磨砂背景舞台、多边形毛玻璃同步、外框分层与方形轨迹光标脚本 (js/theme.js)
    与 js/main.js 配合工作，不侵入修改原有页面渲染逻辑：
    1. 挂载 AT1 / AT2 / AT3 交叉淡入柔焦背景舞台 (.bg-stage)
    2. 将主窗口、左栏按钮、底部按钮的 SVG 多边形轮廓同步为毛玻璃层 clip-path
-   3. 落地“变体 2”外框分层：
-      - 中央主窗 (Z2)：外侧遮罩纯黑双层下沉影 + 精确外扩黑色护边 + 0 发光极净单线
-      - 左上导线 (Z3)：底层黑色护边衬底 + 向下纯黑投影
-      - 左栏/底栏按钮：待命态 (Z1) 细黑护边 + 浅接触影 + 0 发光；
-                        激活态 (Z3) 粗黑护边 + 抬升下沉影 + 严格内收的微光
-   4. 随当前系列自动切换 html[data-series] 与浏览器地址栏 theme-color
+   3. 落地“变体 2”外框分层（黑色护边 + 双层下沉影 + 导线护边 + 选中态内收微光）
+   4. 桌面端搭载 HeronAI 风格 8x8 主题色方形轨迹光标 + 16x16 交互准星外框
+   5. 支持提取码点击一键复制与当前系列 theme-color 同步
    ========================================================================== */
 (function () {
   /* ── 1. 注入柔焦背景舞台 ── */
@@ -44,7 +41,7 @@
     connectorLayerEl.prepend(connectorGuardEl);
   }
 
-  /* ── 4. SVG 多边形路径解析与精确平行外扩算法（确保护边严丝合缝且不压在半透明线框下） ── */
+  /* ── 4. SVG 多边形路径解析与精确平行外扩算法 ── */
   function parsePathVertices(d) {
     if (!d) return [];
     const tokens = d.match(/[MHVLZ]|-?\d+(?:\.\d+)?/gi);
@@ -248,7 +245,6 @@
       );
 
       if (selected) {
-        // 严格将微光向框内缘裁切，保持外侧黑护边与下沉黑影 100% 净黑不混糊；并置于前景条带/侧脊之下
         bg.insertAdjacentHTML(
           "afterend",
           `<defs class="theme-hud-fx">
@@ -276,6 +272,211 @@
     }
   }
 
+  /* ── 6. 桌面端 HeronAI 风格 8x8 方形折线轨迹光标 ── */
+  let refreshCursorColor = function () {};
+  (function initCustomCursor() {
+    const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    const canvas = document.createElement("canvas");
+    canvas.id = "sh-canvas-cursor";
+    canvas.setAttribute("aria-hidden", "true");
+    canvas.style.cssText =
+      "position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:2147483600;";
+    document.body.appendChild(canvas);
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    let dpr = 1;
+    let vw = 0;
+    let vh = 0;
+    function resizeCanvas() {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      vw = window.innerWidth;
+      vh = window.innerHeight;
+      canvas.width = Math.round(vw * dpr);
+      canvas.height = Math.round(vh * dpr);
+    }
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas);
+
+    let cr = 199, cg = 174, cb = 244;
+    let cursorIsDark = false;
+    refreshCursorColor = function () {
+      const hex = getComputedStyle(document.documentElement).getPropertyValue("--panel-frame").trim();
+      if (hex.startsWith("#")) {
+        const h = hex.length === 4 ? hex[1] + hex[1] + hex[2] + hex[2] + hex[3] + hex[3] : hex.slice(1, 7);
+        cr = parseInt(h.slice(0, 2), 16) || 0;
+        cg = parseInt(h.slice(2, 4), 16) || 0;
+        cb = parseInt(h.slice(4, 6), 16) || 0;
+      } else {
+        const m = hex.match(/\d+/g);
+        if (m && m.length >= 3) {
+          cr = Number(m[0]);
+          cg = Number(m[1]);
+          cb = Number(m[2]);
+        }
+      }
+      cursorIsDark = (0.2126 * cr + 0.7152 * cg + 0.0722 * cb) / 255 < 0.28;
+    };
+
+    function syncCursorMode() {
+      const enabled = finePointer.matches;
+      document.documentElement.classList.toggle("has-custom-cursor", enabled);
+      if (!enabled) {
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        ctx.clearRect(0, 0, vw, vh);
+      }
+    }
+    syncCursorMode();
+    finePointer.addEventListener("change", syncCursorMode);
+
+    let visible = false;
+    let mx = -100, my = -100;
+    let cx = -100, cy = -100;
+    let isDown = false;
+    let isInteractive = false;
+    let overTextInput = false;
+    let reticle = 0;
+    let rafId = 0;
+    const trail = [];
+    const MAX_TRAIL = 14;
+
+    function drawFrame() {
+      rafId = 0;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.clearRect(0, 0, vw, vh);
+
+      if (!finePointer.matches || !visible || overTextInput) return;
+
+      const noTrail = reduceMotion.matches;
+      if (noTrail) {
+        cx = mx;
+        cy = my;
+        trail.length = 0;
+      } else {
+        cx += (mx - cx) * 0.44;
+        cy += (my - cy) * 0.44;
+        const dist = Math.hypot(mx - cx, my - cy);
+        trail.push({ x: cx, y: cy });
+        if (trail.length > MAX_TRAIL) trail.shift();
+        if (dist < 0.35 && trail.length > 1) trail.shift();
+
+        if (trail.length > 2 && dist > 0.25) {
+          ctx.lineWidth = 1;
+          ctx.lineCap = "butt";
+          ctx.lineJoin = "miter";
+          for (let i = 1; i < trail.length; i++) {
+            const p0 = trail[i - 1];
+            const p1 = trail[i];
+            const alpha = (i / trail.length) * 0.62;
+            ctx.strokeStyle = `rgba(${cr}, ${cg}, ${cb}, ${alpha.toFixed(3)})`;
+            ctx.beginPath();
+            ctx.moveTo(p0.x, p0.y);
+            ctx.lineTo(p1.x, p1.y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      const coreSize = isDown ? 6 : 8;
+      const hx = Math.round(cx - coreSize / 2);
+      const hy = Math.round(cy - coreSize / 2);
+      ctx.fillStyle = `rgb(${cr}, ${cg}, ${cb})`;
+      ctx.fillRect(hx, hy, coreSize, coreSize);
+      ctx.strokeStyle = cursorIsDark ? "rgba(255, 255, 255, 0.78)" : "rgba(6, 8, 14, 0.48)";
+      ctx.lineWidth = 1;
+      ctx.strokeRect(hx - 0.5, hy - 0.5, coreSize + 1, coreSize + 1);
+
+      const targetReticle = isDown || isInteractive ? 1 : 0;
+      reticle = noTrail ? targetReticle : reticle + (targetReticle - reticle) * 0.32;
+      if (reticle > 0.03) {
+        const outerMax = isDown ? 14 : 16;
+        const curOuter = 8 + (outerMax - 8) * reticle;
+        const ox = Math.round(cx - curOuter / 2) + 0.5;
+        const oy = Math.round(cy - curOuter / 2) + 0.5;
+        const ow = Math.round(curOuter) - 1;
+        ctx.strokeStyle = `rgba(${cr}, ${cg}, ${cb}, ${(0.88 * reticle).toFixed(3)})`;
+        ctx.lineWidth = 1;
+        ctx.strokeRect(ox, oy, ow, ow);
+      }
+
+      const stillMoving =
+        Math.hypot(mx - cx, my - cy) > 0.08 ||
+        trail.length > 1 ||
+        Math.abs(targetReticle - reticle) > 0.02;
+      if (stillMoving) {
+        rafId = requestAnimationFrame(drawFrame);
+      }
+    }
+
+    function kick() {
+      if (!rafId && finePointer.matches) {
+        rafId = requestAnimationFrame(drawFrame);
+      }
+    }
+
+    window.addEventListener(
+      "pointermove",
+      (e) => {
+        if (e.pointerType === "touch") return;
+        if (!visible) {
+          cx = e.clientX;
+          cy = e.clientY;
+          refreshCursorColor();
+        }
+        visible = true;
+        mx = e.clientX;
+        my = e.clientY;
+        const t = e.target;
+        overTextInput = Boolean(t && t.closest && t.closest('input[type="text"], textarea'));
+        isInteractive = Boolean(
+          t &&
+            t.closest &&
+            t.closest(
+              'a, button, [role="button"], input[type="range"], input[type="color"], .dl-code, .hud-scroll-thumb, .hud-scroll-track'
+            )
+        );
+        kick();
+      },
+      { passive: true }
+    );
+
+    window.addEventListener("pointerdown", () => { isDown = true; kick(); }, { passive: true });
+    window.addEventListener("pointerup", () => { isDown = false; kick(); }, { passive: true });
+    document.addEventListener("mouseleave", () => { visible = false; trail.length = 0; kick(); });
+    document.addEventListener("input", () => { refreshCursorColor(); kick(); }, { passive: true });
+  })();
+
+  /* ── 7. 提取码一键复制委托交互 ── */
+  function copyDlCode(codeEl) {
+    const valEl = codeEl.querySelector(".dl-code-value");
+    const code = valEl ? valEl.textContent.trim() : "";
+    if (!code) return;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(code).catch(() => {});
+    }
+    codeEl.classList.add("is-copied");
+    clearTimeout(codeEl._copyTimer);
+    codeEl._copyTimer = setTimeout(() => {
+      codeEl.classList.remove("is-copied");
+    }, 1400);
+  }
+
+  document.addEventListener("click", (e) => {
+    const codeEl = e.target.closest(".dl-code");
+    if (codeEl) copyDlCode(codeEl);
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key !== "Enter" && e.key !== " ") return;
+    const codeEl = e.target.closest && e.target.closest(".dl-code");
+    if (codeEl) {
+      e.preventDefault();
+      copyDlCode(codeEl);
+    }
+  });
+
   function syncSeriesTheme() {
     const series = (typeof state !== "undefined" && state.series) ? state.series : "at1";
     document.documentElement.setAttribute("data-series", series);
@@ -284,9 +485,10 @@
       const cssBase = getComputedStyle(document.documentElement).getPropertyValue("--canvas-base").trim();
       metaTheme.setAttribute("content", cssBase || "#cfd5de");
     }
+    requestAnimationFrame(refreshCursorColor);
   }
 
-  /* ── 6. 包装几何重绘与路由渲染钩子 ── */
+  /* ── 8. 包装几何重绘与路由渲染钩子 ── */
   if (typeof window.drawPanelFrame === "function") {
     const origDrawPanel = window.drawPanelFrame;
     window.drawPanelFrame = function () {
@@ -334,7 +536,7 @@
     };
   }
 
-  /* ── 7. 初次执行同步 ── */
+  /* ── 9. 初次执行同步 ── */
   syncSeriesTheme();
   if (typeof window.drawConnector === "function") {
     window.drawConnector();

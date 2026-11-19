@@ -45,18 +45,17 @@ function drawTabFrames() {
     if (w <= 0 || h <= 0) return;
 
     svg.setAttribute("viewBox", `0 0 ${w} ${h}`);
-    const n1 = Math.round(w * 0.20);
-    const n2 = Math.round(w * 0.65);
-    const stripEnd = Math.min(w - 34, Math.max(72, Math.round(w * 0.52)));
+    const n1 = Math.round(w * 0.28);
+    const n2 = Math.round(w * 0.75);
     const selected = tab.getAttribute("aria-selected") === "true";
     const midY = h / 2;
 
     const bgPath = [
       `M 0.8 0.8`,
-      `H ${w - 15}`,
-      `L ${w - 0.8} 15`,
-      `V ${h - 7.5}`,
-      `L ${w - 7.5} ${h - 0.8}`,
+      `H ${w - 16}`,
+      `L ${w - 0.8} 16`,
+      `V ${h - 8}`,
+      `L ${w - 8} ${h - 0.8}`,
       `H ${n2}`,
       `L ${n2 - 6} ${h - 4.5}`,
       `H ${n1 + 6}`,
@@ -71,8 +70,7 @@ function drawTabFrames() {
 
     svg.innerHTML = `
       <path class="tab-bg" d="${bgPath}" />
-      <path class="tab-strip" d="M 7 4.2 H ${stripEnd} L ${stripEnd + 5} 8.2 H 7 Z" />
-      <rect class="tab-spine" x="0.8" y="0.8" width="3.6" height="${h - 1.6}" />
+      <rect class="tab-spine" x="0.8" y="0.8" width="6.5" height="${h - 1.6}" />
       <line class="tab-notch-line" x1="${n1 + 6}" y1="${h - 0.8}" x2="${n2 - 6}" y2="${h - 0.8}" />
       ${foot}`;
   });
@@ -248,7 +246,7 @@ function drawConnector() {
   let auxD = "";
   let leftHorizAvail;
 
-  if (y1 - peakY < cut * 2 + 8) {
+  if (y1 - peakY < cut * 2 + 20 && bridgeRightX - x1 - (y1 - peakY) >= 12) {
     // 顶部首项（图一）：水平引出 -> 45° 斜升上拱 -> 顶部短平桥 -> -45° 垂直落入主框斜切边
     const climb = Math.max(8, y1 - peakY);
     const avail = Math.max(16, bridgeRightX - x1 - climb);
@@ -398,7 +396,7 @@ function renderIndex() {
       return `<a class="tab tab-link" href="${s.url}" target="_blank" rel="noopener noreferrer">
         <svg class="tab-frame" aria-hidden="true"></svg>
         <span class="tab-en">${s.name}</span>
-        <span class="tab-sub">${s.sub} </span>
+        <span class="tab-sub">${s.sub}</span>
       </a>`;
     }
     return `<button type="button" role="tab" class="tab" data-series="${s.id}"

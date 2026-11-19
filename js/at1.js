@@ -87,9 +87,11 @@ function at1Download() {
   return `
     ${viewHead("下载与补丁教程")}
     <div class="download-hero">
-      <a class="big-link" href="${at1DownloadUrl}" target="_blank" rel="noopener noreferrer">百度网盘下载</a>
+      <div class="dl-head">
+        <a class="big-link" href="${at1DownloadUrl}" target="_blank" rel="noopener noreferrer">百度网盘下载</a>
+        <div class="dl-code" role="button" tabindex="0" title="点击复制提取码"><span class="dl-code-label">提取码</span><span class="dl-code-value">0bms</span></div>
+      </div>
       <dl class="dl-meta">
-        <div><dt>提取码</dt><dd>0bms</dd></div>
         <div><dt>适用镜像</dt><dd>日版、美版、欧版</dd></div>
         <div><dt>主要支持</dt><dd>日版</dd></div>
       </dl>

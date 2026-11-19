@@ -30,17 +30,17 @@
       connectorColor: "#c7aef4",
       scrollThumbColor: "#8a79a4",
       surface2Color: "#ffffff",
-      surface2Alpha: 0.06,
+      surface2Alpha: 0,
       lineColor: "#ffffff",
       lineAlpha: 0.16,
 
       panelGuardColor: "#04060d",
       panelGuardAlpha: 0.92,
-      panelGuardWidth: 4.8,
-      panelShadowY: 26,
-      panelDeepShadowAlpha: 0.70,
+      panelGuardWidth: 6,
+      panelShadowY: 25,
+      panelDeepShadowAlpha: 0.62,
       panelContactShadowAlpha: 0.82,
-      connShadowAlpha: 0.62,
+      connShadowAlpha: 0.82,
 
       inkTitle: "#f3f6fb",
       inkBody: "#dde3ee",
@@ -65,9 +65,9 @@
 
       navGuardColor: "#04060d",
       navGuardAlpha: 0.92,
-      navIdleShadowAlpha: 0.44,
-      navSelShadowAlpha: 0.70,
-      navSelGlowAlpha: 0.32
+      navIdleShadowAlpha: 0.12,
+      navSelShadowAlpha: 0.14,
+      navSelGlowAlpha: 0.30
     },
 
     at2: {
@@ -78,28 +78,28 @@
       veilCenterColor: "#b6e2f0",
       veilCenterAlpha: 0.16,
       veilEdgeColor: "#041b2a",
-      veilEdgeAlpha: 0.47,
+      veilEdgeAlpha: 0.36,
       grainAlpha: 0.036,
 
       panelBgColor: "#01101e",
       panelBgAlpha: 0.83,
       panelBlur: 9,
-      panelFrameColor: "#7aeef0",
-      accentColor: "#56a0c2",
-      connectorColor: "#7aeef0",
-      scrollThumbColor: "#90bfd5",
+      panelFrameColor: "#7af0d9",
+      accentColor: "#56adc2",
+      connectorColor: "#7af0d9",
+      scrollThumbColor: "#5197a9",
       surface2Color: "#ffffff",
-      surface2Alpha: 0.06,
+      surface2Alpha: 0,
       lineColor: "#ffffff",
       lineAlpha: 0.16,
 
       panelGuardColor: "#04060d",
       panelGuardAlpha: 0.92,
-      panelGuardWidth: 4.8,
-      panelShadowY: 26,
-      panelDeepShadowAlpha: 0.70,
+      panelGuardWidth: 6,
+      panelShadowY: 25,
+      panelDeepShadowAlpha: 0.62,
       panelContactShadowAlpha: 0.82,
-      connShadowAlpha: 0.62,
+      connShadowAlpha: 0.82,
 
       inkTitle: "#f3f6fb",
       inkBody: "#dde3ee",
@@ -109,83 +109,83 @@
       navBgColor: "#01101e",
       navBgAlpha: 0.78,
       navBlur: 9,
-      navStrokeColor: "#6cabcb",
+      navStrokeColor: "#5eba9c",
       navStrokeAlpha: 0.30,
       navInkColor: "#e8ecf2",
       navSubInkColor: "#c6ceda",
 
       navSelColor1: "#182f39",
-      navSelColor2: "#010d19",
+      navSelColor2: "#020308",
       navSelAlpha: 0.64,
-      navSelStrokeColor: "#7aeef0",
-      navSelSpineColor: "#a3f4ff",
+      navSelStrokeColor: "#7af0d9",
+      navSelSpineColor: "#a8ffee",
       navSelInkColor: "#ffffff",
       navSelSubInkColor: "#cfe9f4",
 
       navGuardColor: "#04060d",
       navGuardAlpha: 0.92,
-      navIdleShadowAlpha: 0.44,
-      navSelShadowAlpha: 0.70,
-      navSelGlowAlpha: 0.32
+      navIdleShadowAlpha: 0.12,
+      navSelShadowAlpha: 0.14,
+      navSelGlowAlpha: 0.30
     },
 
     at3: {
       canvasBase: "#2b202c",
       bgBlur: 4,
-      bgSaturate: 98,
+      bgSaturate: 120,
       bgOpacity: 0.90,
       veilCenterColor: "#4a2d4e",
-      veilCenterAlpha: 0.42,
+      veilCenterAlpha: 0.16,
       veilEdgeColor: "#211720",
-      veilEdgeAlpha: 0.63,
+      veilEdgeAlpha: 0.36,
       grainAlpha: 0.036,
 
-      panelBgColor: "#0a0608",
+      panelBgColor: "#09050a",
       panelBgAlpha: 0.83,
       panelBlur: 9,
-      panelFrameColor: "#e594bf",
+      panelFrameColor: "#ffbde0",
       accentColor: "#552b46",
-      connectorColor: "#e594bf",
-      scrollThumbColor: "#e2aec8",
+      connectorColor: "#ffbde0",
+      scrollThumbColor: "#c293ab",
       surface2Color: "#ffffff",
-      surface2Alpha: 0.06,
+      surface2Alpha: 0,
       lineColor: "#ffffff",
       lineAlpha: 0.16,
 
       panelGuardColor: "#04060d",
       panelGuardAlpha: 0.92,
-      panelGuardWidth: 4.8,
-      panelShadowY: 26,
-      panelDeepShadowAlpha: 0.70,
+      panelGuardWidth: 6,
+      panelShadowY: 25,
+      panelDeepShadowAlpha: 0.62,
       panelContactShadowAlpha: 0.82,
-      connShadowAlpha: 0.62,
+      connShadowAlpha: 0.82,
 
       inkTitle: "#f3f6fb",
       inkBody: "#dde3ee",
       inkMute: "#9aa6b8",
       footerInk: "#f0dce7",
 
-      navBgColor: "#0a0608",
+      navBgColor: "#09050a",
       navBgAlpha: 0.78,
       navBlur: 9,
-      navStrokeColor: "#a54078",
-      navStrokeAlpha: 0.28,
+      navStrokeColor: "#af6e91",
+      navStrokeAlpha: 0.30,
       navInkColor: "#e8ecf2",
       navSubInkColor: "#c6ceda",
 
-      navSelColor1: "#461b2a",
-      navSelColor2: "#090208",
-      navSelAlpha: 0.63,
-      navSelStrokeColor: "#e594bf",
-      navSelSpineColor: "#ffb8de",
+      navSelColor1: "#2c162d",
+      navSelColor2: "#000000",
+      navSelAlpha: 0.64,
+      navSelStrokeColor: "#ffbde0",
+      navSelSpineColor: "#ffcce7",
       navSelInkColor: "#ffffff",
       navSelSubInkColor: "#edd4e1",
 
       navGuardColor: "#04060d",
       navGuardAlpha: 0.92,
-      navIdleShadowAlpha: 0.44,
-      navSelShadowAlpha: 0.70,
-      navSelGlowAlpha: 0.32
+      navIdleShadowAlpha: 0.12,
+      navSelShadowAlpha: 0.14,
+      navSelGlowAlpha: 0.30
     },
 
     default: {
@@ -213,8 +213,8 @@
 
       panelGuardColor: "#ffffff",
       panelGuardAlpha: 0.90,
-      panelGuardWidth: 4.8,
-      panelShadowY: 26,
+      panelGuardWidth: 6,
+      panelShadowY: 25,
       panelDeepShadowAlpha: 0.26,
       panelContactShadowAlpha: 0.30,
       connShadowAlpha: 0.28,
@@ -242,9 +242,9 @@
 
       navGuardColor: "#04060d",
       navGuardAlpha: 0.92,
-      navIdleShadowAlpha: 0.44,
-      navSelShadowAlpha: 0.70,
-      navSelGlowAlpha: 0.32
+      navIdleShadowAlpha: 0.12,
+      navSelShadowAlpha: 0.14,
+      navSelGlowAlpha: 0.34
     }
   };
 
@@ -462,9 +462,6 @@
   function compileStandaloneThemeCss() {
     const baseExtra = `
 
-  --tab-strip: rgba(255, 255, 255, 0.08);
-  --tab-hover-strip: rgba(255, 255, 255, 0.14);
-  --tab-sel-strip: rgba(255, 255, 255, 0.18);
   --tab-hover-spine: rgba(255, 255, 255, 0.78);
   --tab-notch: rgba(255, 255, 255, 0.18);
   --tab-sel-notch: rgba(255, 255, 255, 0.36);
@@ -473,11 +470,30 @@
   --pill-sel-inner-stroke: rgba(255, 255, 255, 0.26);
   --pill-divider: rgba(255, 255, 255, 0.15);
   --pill-sel-divider: rgba(255, 255, 255, 0.30);
-  --scroll-cap-side: rgba(108, 118, 132, 0.82);
-  --scroll-grip: rgba(255, 255, 255, 0.74);
-  --scroll-grip-hover: #ffffff;`;
+  --scroll-cap-side: rgba(108, 118, 132, 0.82);`;
 
     const structuralCss = `
+/* ── 0. 桌面端几何方形轨迹光标宿主控制 ── */
+@media (hover: hover) and (pointer: fine) {
+  html.has-custom-cursor,
+  html.has-custom-cursor body,
+  html.has-custom-cursor a,
+  html.has-custom-cursor button,
+  html.has-custom-cursor [role="button"],
+  html.has-custom-cursor input[type="range"],
+  html.has-custom-cursor input[type="color"],
+  html.has-custom-cursor .dl-code,
+  html.has-custom-cursor .sh-tuner-head,
+  html.has-custom-cursor .hud-scroll-track,
+  html.has-custom-cursor .hud-scroll-thumb {
+    cursor: none !important;
+  }
+  html.has-custom-cursor input[type="text"],
+  html.has-custom-cursor textarea {
+    cursor: text !important;
+  }
+}
+
 /* ── 1. 背景舞台 ── */
 html, body { background: var(--canvas-base); }
 body { background: transparent !important; position: relative; }
@@ -543,9 +559,6 @@ html[data-series="at3"] .bg-neutral { opacity: 0; }
 .tab:active .tab-frame .tab-bg { fill: transparent; }
 .tab[aria-selected="true"] .tab-frame .tab-bg { fill: transparent; stroke: var(--tab-sel-stroke); stroke-width: 2; }
 .tab[aria-selected="true"]:hover .tab-frame .tab-bg { fill: transparent; stroke: var(--tab-sel-hover-stroke); }
-.tab-frame .tab-strip { fill: var(--tab-strip); }
-.tab:hover .tab-frame .tab-strip { fill: var(--tab-hover-strip); }
-.tab[aria-selected="true"] .tab-frame .tab-strip { fill: var(--tab-sel-strip); }
 .tab-frame .tab-spine { fill: var(--tab-spine); }
 .tab:hover .tab-frame .tab-spine { fill: var(--tab-hover-spine); }
 .tab[aria-selected="true"] .tab-frame .tab-spine { fill: var(--tab-sel-spine); }
@@ -553,9 +566,11 @@ html[data-series="at3"] .bg-neutral { opacity: 0; }
 .tab[aria-selected="true"] .tab-frame .tab-notch-line { stroke: var(--tab-sel-notch); }
 .tab-frame .tab-foot { fill: var(--conn-main); }
 .tab-en { color: var(--tab-ink); text-shadow: 0 1px 2px rgba(4, 6, 12, 0.42); }
+.tab-en::after { background: linear-gradient(90deg, var(--pill-divider) 0%, var(--pill-divider) 62%, transparent 100%); }
 .tab-sub, .tab-sub rt { color: var(--tab-sub-ink); text-shadow: 0 1px 2px rgba(4, 6, 12, 0.36); }
 .tab:hover .tab-sub, .tab:hover .tab-sub rt { color: var(--tab-sub-hover-ink); }
 .tab[aria-selected="true"] .tab-en { color: var(--tab-sel-ink); text-shadow: var(--sel-text-shadow); }
+.tab[aria-selected="true"] .tab-en::after { background: linear-gradient(90deg, var(--pill-sel-divider) 0%, var(--pill-sel-divider) 62%, transparent 100%); }
 .tab[aria-selected="true"] .tab-sub, .tab[aria-selected="true"] .tab-sub rt { color: var(--tab-sel-sub-ink); text-shadow: var(--sel-text-shadow); }
 #panel-outline { stroke: var(--panel-frame, var(--bar)); transition: stroke 260ms var(--ease); }
 #panel-armor { fill: var(--panel-frame, var(--bar)); transition: fill 260ms var(--ease); }
@@ -567,8 +582,6 @@ html[data-series="at3"] .bg-neutral { opacity: 0; }
 .hud-scrollbar::after { border-bottom-color: var(--panel-frame, var(--bar)); }
 .hud-scroll-thumb { background: var(--scroll-thumb); }
 .hud-scroll-thumb:hover, .hud-scrollbar.is-dragging .hud-scroll-thumb { background: var(--scroll-thumb-hover); }
-.hud-scroll-thumb::before { background: linear-gradient(180deg, var(--scroll-grip) 0 1px, transparent 1px 3px, var(--scroll-grip) 3px 4px, transparent 4px 6px, var(--scroll-grip) 6px 7px); }
-.hud-scroll-thumb:hover::before, .hud-scrollbar.is-dragging .hud-scroll-thumb::before { background: linear-gradient(180deg, var(--scroll-grip-hover) 0 1px, transparent 1px 3px, var(--scroll-grip-hover) 3px 4px, transparent 4px 6px, var(--scroll-grip-hover) 6px 7px); }
 .pill-frame .pill-bg { fill: transparent; stroke: var(--pill-stroke); stroke-width: 1.35; }
 .pill:hover .pill-frame .pill-bg { fill: transparent; stroke: var(--pill-hover-stroke); }
 .pill:active .pill-frame .pill-bg { fill: transparent; }
