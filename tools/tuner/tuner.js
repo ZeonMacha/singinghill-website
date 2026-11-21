@@ -7,7 +7,7 @@
    3. 浏览器本地存储自动保留进度，支持复制/导入 JSON、下载 theme.css 及一键直写 css/theme.css
    ========================================================================== */
 (function () {
-  const STORAGE_KEY = "singinghill_color_tuner_v2";
+  const STORAGE_KEY = "singinghill_color_tuner_v3";
   const HAS_PLUGIN_SAVE = Boolean(window.__SH_TUNER_PLUGIN__ && window.__SH_TUNER_PLUGIN__.canWriteTheme);
 
   const DEFAULT_PROFILES = {
@@ -17,30 +17,42 @@
       bgSaturate: 120,
       bgOpacity: 0.90,
       veilCenterColor: "#c4bee8",
-      veilCenterAlpha: 0.16,
+      veilCenterAlpha: 0.12,
       veilEdgeColor: "#0c0f20",
-      veilEdgeAlpha: 0.36,
+      veilEdgeAlpha: 0.47,
       grainAlpha: 0.036,
 
       panelBgColor: "#0e0e17",
       panelBgAlpha: 0.83,
       panelBlur: 9,
+      panelGradAngle: 135,
+      panelGradMid: 46,
+      panelFrameStart: "#f3e8ff",
       panelFrameColor: "#c7aef4",
+      panelFrameEnd: "#5e3c96",
       accentColor: "#8662b2",
       connectorColor: "#c7aef4",
+      connNodeColor: "#f497cf",
+      stepLeadColor: "#f497cf",
+      stepMainColor: "#9f80d4",
+      stepLouverColor: "#f3e8ff",
+      stepCapColor: "#c7aef4",
+      cornerTri1Color: "#c7aef4",
+      cornerTri2Color: "#f3e8ff",
+      cornerTri3Color: "#f497cf",
       scrollThumbColor: "#8a79a4",
       surface2Color: "#ffffff",
       surface2Alpha: 0,
       lineColor: "#ffffff",
       lineAlpha: 0.16,
 
-      panelGuardColor: "#04060d",
-      panelGuardAlpha: 0.92,
-      panelGuardWidth: 6,
-      panelShadowY: 25,
-      panelDeepShadowAlpha: 0.62,
-      panelContactShadowAlpha: 0.82,
-      connShadowAlpha: 0.82,
+      panelGuardColor: "#0e061e",
+      panelGuardAlpha: 0.66,
+      panelGuardWidth: 7.2,
+      panelShadowY: 24,
+      panelDeepShadowAlpha: 0.66,
+      panelContactShadowAlpha: 0.88,
+      connShadowAlpha: 0.44,
 
       inkTitle: "#f3f6fb",
       inkBody: "#dde3ee",
@@ -67,39 +79,51 @@
       navGuardAlpha: 0.92,
       navIdleShadowAlpha: 0.12,
       navSelShadowAlpha: 0.14,
-      navSelGlowAlpha: 0.30
+      navSelGlowAlpha: 0.14
     },
 
     at2: {
-      canvasBase: "#192e2d",
+      canvasBase: "#091939",
       bgBlur: 4,
       bgSaturate: 120,
       bgOpacity: 0.90,
-      veilCenterColor: "#b6e2f0",
-      veilCenterAlpha: 0.16,
-      veilEdgeColor: "#041b2a",
-      veilEdgeAlpha: 0.36,
+      veilCenterColor: "#5bb8d7",
+      veilCenterAlpha: 0.12,
+      veilEdgeColor: "#052e4d",
+      veilEdgeAlpha: 0.47,
       grainAlpha: 0.036,
 
       panelBgColor: "#01101e",
       panelBgAlpha: 0.83,
       panelBlur: 9,
-      panelFrameColor: "#7af0d9",
-      accentColor: "#56adc2",
-      connectorColor: "#7af0d9",
-      scrollThumbColor: "#5197a9",
+      panelGradAngle: 135,
+      panelGradMid: 46,
+      panelFrameStart: "#d6ebff",
+      panelFrameColor: "#6094fb",
+      panelFrameEnd: "#1d3f8a",
+      accentColor: "#2753aa",
+      connectorColor: "#6094fb",
+      connNodeColor: "#5eead4",
+      stepLeadColor: "#5eead4",
+      stepMainColor: "#4875d6",
+      stepLouverColor: "#d6ebff",
+      stepCapColor: "#6094fb",
+      cornerTri1Color: "#6094fb",
+      cornerTri2Color: "#d6ebff",
+      cornerTri3Color: "#5eead4",
+      scrollThumbColor: "#4b608b",
       surface2Color: "#ffffff",
       surface2Alpha: 0,
       lineColor: "#ffffff",
       lineAlpha: 0.16,
 
-      panelGuardColor: "#04060d",
-      panelGuardAlpha: 0.92,
-      panelGuardWidth: 6,
-      panelShadowY: 25,
-      panelDeepShadowAlpha: 0.62,
-      panelContactShadowAlpha: 0.82,
-      connShadowAlpha: 0.82,
+      panelGuardColor: "#040c2a",
+      panelGuardAlpha: 0.66,
+      panelGuardWidth: 7.2,
+      panelShadowY: 24,
+      panelDeepShadowAlpha: 0.66,
+      panelContactShadowAlpha: 0.88,
+      connShadowAlpha: 0.44,
 
       inkTitle: "#f3f6fb",
       inkBody: "#dde3ee",
@@ -109,24 +133,24 @@
       navBgColor: "#01101e",
       navBgAlpha: 0.78,
       navBlur: 9,
-      navStrokeColor: "#5eba9c",
+      navStrokeColor: "#5872a7",
       navStrokeAlpha: 0.30,
       navInkColor: "#e8ecf2",
       navSubInkColor: "#c6ceda",
 
-      navSelColor1: "#182f39",
+      navSelColor1: "#1d1a3c",
       navSelColor2: "#020308",
       navSelAlpha: 0.64,
-      navSelStrokeColor: "#7af0d9",
-      navSelSpineColor: "#a8ffee",
+      navSelStrokeColor: "#6094fb",
+      navSelSpineColor: "#86bafe",
       navSelInkColor: "#ffffff",
-      navSelSubInkColor: "#cfe9f4",
+      navSelSubInkColor: "#cddaf4",
 
       navGuardColor: "#04060d",
       navGuardAlpha: 0.92,
       navIdleShadowAlpha: 0.12,
       navSelShadowAlpha: 0.14,
-      navSelGlowAlpha: 0.30
+      navSelGlowAlpha: 0.14
     },
 
     at3: {
@@ -135,57 +159,69 @@
       bgSaturate: 120,
       bgOpacity: 0.90,
       veilCenterColor: "#4a2d4e",
-      veilCenterAlpha: 0.16,
+      veilCenterAlpha: 0.12,
       veilEdgeColor: "#211720",
-      veilEdgeAlpha: 0.36,
+      veilEdgeAlpha: 0.47,
       grainAlpha: 0.036,
 
-      panelBgColor: "#09050a",
+      panelBgColor: "#0b0510",
       panelBgAlpha: 0.83,
       panelBlur: 9,
-      panelFrameColor: "#ffbde0",
-      accentColor: "#552b46",
-      connectorColor: "#ffbde0",
-      scrollThumbColor: "#c293ab",
+      panelGradAngle: 135,
+      panelGradMid: 46,
+      panelFrameStart: "#e4f9ff",
+      panelFrameColor: "#8ed0ec",
+      panelFrameEnd: "#315f7c",
+      accentColor: "#73ccf2",
+      connectorColor: "#8ed0ec",
+      connNodeColor: "#f3a2d4",
+      stepLeadColor: "#f3a2d4",
+      stepMainColor: "#6aa9c7",
+      stepLouverColor: "#e4f9ff",
+      stepCapColor: "#8ed0ec",
+      cornerTri1Color: "#8ed0ec",
+      cornerTri2Color: "#e4f9ff",
+      cornerTri3Color: "#f3a2d4",
+      scrollThumbColor: "#71a2b7",
       surface2Color: "#ffffff",
       surface2Alpha: 0,
       lineColor: "#ffffff",
       lineAlpha: 0.16,
 
-      panelGuardColor: "#04060d",
-      panelGuardAlpha: 0.92,
-      panelGuardWidth: 6,
-      panelShadowY: 25,
-      panelDeepShadowAlpha: 0.62,
-      panelContactShadowAlpha: 0.82,
-      connShadowAlpha: 0.82,
+      panelGuardColor: "#130321",
+      panelGuardAlpha: 0.66,
+      panelGuardWidth: 7.2,
+      panelShadowY: 24,
+      panelDeepShadowAlpha: 0.66,
+      panelContactShadowAlpha: 0.88,
+      connShadowAlpha: 0.44,
 
       inkTitle: "#f3f6fb",
       inkBody: "#dde3ee",
       inkMute: "#9aa6b8",
       footerInk: "#f0dce7",
 
-      navBgColor: "#09050a",
+      navBgColor: "#0b0510",
       navBgAlpha: 0.78,
       navBlur: 9,
-      navStrokeColor: "#af6e91",
+      navStrokeColor: "#395f6f",
       navStrokeAlpha: 0.30,
       navInkColor: "#e8ecf2",
       navSubInkColor: "#c6ceda",
 
-      navSelColor1: "#2c162d",
+      navSelColor1: "#0b1923",
       navSelColor2: "#000000",
       navSelAlpha: 0.64,
-      navSelStrokeColor: "#ffbde0",
-      navSelSpineColor: "#ffcce7",
+      navSelStrokeColor: "#8ed0ec",
+      navSelSpineColor: "#beeefe",
       navSelInkColor: "#ffffff",
-      navSelSubInkColor: "#edd4e1",
+      navSelSubInkColor: "#d7e3ee",
 
       navGuardColor: "#04060d",
       navGuardAlpha: 0.92,
       navIdleShadowAlpha: 0.12,
       navSelShadowAlpha: 0.14,
-      navSelGlowAlpha: 0.30
+      navSelGlowAlpha: 0.14
     },
 
     default: {
@@ -194,17 +230,29 @@
       bgSaturate: 120,
       bgOpacity: 0.90,
       veilCenterColor: "#ecf0f6",
-      veilCenterAlpha: 0.16,
+      veilCenterAlpha: 0.12,
       veilEdgeColor: "#141820",
-      veilEdgeAlpha: 0.36,
+      veilEdgeAlpha: 0.47,
       grainAlpha: 0.036,
 
       panelBgColor: "#f3f5f9",
       panelBgAlpha: 0.83,
       panelBlur: 9,
+      panelGradAngle: 135,
+      panelGradMid: 46,
+      panelFrameStart: "#15181f",
       panelFrameColor: "#232730",
+      panelFrameEnd: "#7a8496",
       accentColor: "#323844",
       connectorColor: "#232730",
+      connNodeColor: "#3b6ea8",
+      stepLeadColor: "#3b6ea8",
+      stepMainColor: "#464e5d",
+      stepLouverColor: "#15181f",
+      stepCapColor: "#232730",
+      cornerTri1Color: "#232730",
+      cornerTri2Color: "#687385",
+      cornerTri3Color: "#3b6ea8",
       scrollThumbColor: "#232730",
       surface2Color: "#e8ecf2",
       surface2Alpha: 0.72,
@@ -213,8 +261,8 @@
 
       panelGuardColor: "#ffffff",
       panelGuardAlpha: 0.90,
-      panelGuardWidth: 6,
-      panelShadowY: 25,
+      panelGuardWidth: 7.2,
+      panelShadowY: 24,
       panelDeepShadowAlpha: 0.26,
       panelContactShadowAlpha: 0.30,
       connShadowAlpha: 0.28,
@@ -244,7 +292,7 @@
       navGuardAlpha: 0.92,
       navIdleShadowAlpha: 0.12,
       navSelShadowAlpha: 0.14,
-      navSelGlowAlpha: 0.34
+      navSelGlowAlpha: 0.14
     }
   };
 
@@ -368,11 +416,23 @@
   --surface-3: ${rgba(p.surface2Color, Math.min(1, p.surface2Alpha + 0.07))};
 
   --panel-frame: ${p.panelFrameColor};
+  --panel-frame-start: ${p.panelFrameStart};
+  --panel-frame-end: ${p.panelFrameEnd};
+  --panel-grad-angle: ${p.panelGradAngle};
+  --panel-grad-mid: ${p.panelGradMid}%;
+  --panel-step-lead: ${p.stepLeadColor};
+  --panel-step-main: ${p.stepMainColor};
+  --panel-step-louver: ${p.stepLouverColor};
+  --panel-step-cap: ${p.stepCapColor};
+  --panel-tri-1: ${p.cornerTri1Color};
+  --panel-tri-2: ${p.cornerTri2Color};
+  --panel-tri-3: ${p.cornerTri3Color};
   --bar: ${p.accentColor};
   --bar-2: ${p.accentColor};
   --bar-3: ${shiftHex(p.accentColor, 22)};
   --conn-main: ${p.connectorColor};
   --conn-aux: ${rgba(p.connectorColor, 0.68)};
+  --conn-node: ${p.connNodeColor};
   --scroll-thumb: ${p.scrollThumbColor};
   --scroll-thumb-hover: ${scrollHover};
 
@@ -538,6 +598,7 @@ html[data-series="at3"] .bg-neutral { opacity: 0; }
 #connector-aux { stroke: var(--conn-aux); transition: stroke 260ms var(--ease); }
 #connector-line { stroke: var(--conn-main); transition: stroke 260ms var(--ease); }
 #connector-caps { fill: var(--conn-main); transition: fill 260ms var(--ease); }
+.connector-node { fill: var(--conn-node, var(--conn-main)); stroke: var(--panel-guard-color, rgba(4, 6, 13, 0.92)); stroke-width: 1.4px; paint-order: stroke fill; transition: fill 260ms var(--ease), stroke 260ms var(--ease); }
 
 .panel-shadow-deep { filter: drop-shadow(0 var(--panel-shadow-y, 26px) var(--panel-shadow-blur, 25px) var(--panel-shadow-deep, rgba(0, 0, 0, 0.70))); }
 .panel-shadow-contact { filter: drop-shadow(0 5px 7px var(--panel-shadow-contact, rgba(0, 0, 0, 0.82))); }
@@ -572,14 +633,25 @@ html[data-series="at3"] .bg-neutral { opacity: 0; }
 .tab[aria-selected="true"] .tab-en { color: var(--tab-sel-ink); text-shadow: var(--sel-text-shadow); }
 .tab[aria-selected="true"] .tab-en::after { background: linear-gradient(90deg, var(--pill-sel-divider) 0%, var(--pill-sel-divider) 62%, transparent 100%); }
 .tab[aria-selected="true"] .tab-sub, .tab[aria-selected="true"] .tab-sub rt { color: var(--tab-sel-sub-ink); text-shadow: var(--sel-text-shadow); }
-#panel-outline { stroke: var(--panel-frame, var(--bar)); transition: stroke 260ms var(--ease); }
+.sh-panel-grad-start { stop-color: var(--panel-frame-start, var(--panel-frame)); transition: stop-color 260ms var(--ease); }
+.sh-panel-grad-mid { stop-color: var(--panel-frame, var(--bar)); transition: stop-color 260ms var(--ease); }
+.sh-panel-grad-end { stop-color: var(--panel-frame-end, var(--panel-frame)); transition: stop-color 260ms var(--ease); }
+#panel-outline { stroke: var(--panel-frame, var(--bar)); stroke-width: 2.1; transition: stroke 260ms var(--ease); }
 #panel-armor { fill: var(--panel-frame, var(--bar)); transition: fill 260ms var(--ease); }
+#panel-armor .panel-side-armor { opacity: 0.86; }
+#panel-armor .panel-step-lead { fill: var(--panel-step-lead, var(--panel-frame)); transition: fill 260ms var(--ease); }
+#panel-armor .panel-step-main { fill: var(--panel-step-main, var(--panel-frame)); transition: fill 260ms var(--ease); }
+#panel-armor .panel-step-louver { fill: var(--panel-step-louver, var(--panel-frame-start, var(--panel-frame))); transition: fill 260ms var(--ease); }
+#panel-armor .panel-step-cap { fill: var(--panel-step-cap, var(--panel-frame)); transition: fill 260ms var(--ease); }
+#panel-armor .panel-tri-1 { fill: var(--panel-tri-1, var(--panel-frame)); transition: fill 260ms var(--ease); }
+#panel-armor .panel-tri-2 { fill: var(--panel-tri-2, var(--panel-frame-start, var(--panel-frame))); transition: fill 260ms var(--ease); }
+#panel-armor .panel-tri-3 { fill: var(--panel-tri-3, var(--conn-node, var(--panel-frame))); transition: fill 260ms var(--ease); }
 #panel-accents .frame-corner-line { stroke: var(--panel-frame, var(--bar)); transition: stroke 260ms var(--ease); }
 .panel-tab { color: var(--ink); }
-.panel-tab::before { background: var(--panel-frame, var(--bar)); transition: background 260ms var(--ease); }
+.panel-tab::before { background: linear-gradient(180deg, var(--panel-frame-start, var(--panel-frame, var(--bar))), var(--panel-frame, var(--bar))); transition: background 260ms var(--ease); }
 .hud-scrollbar::before, .hud-scrollbar::after { border-left-color: var(--scroll-cap-side); border-right-color: var(--scroll-cap-side); }
-.hud-scrollbar::before { border-top-color: var(--panel-frame, var(--bar)); }
-.hud-scrollbar::after { border-bottom-color: var(--panel-frame, var(--bar)); }
+.hud-scrollbar::before { border-top-color: var(--panel-frame-start, var(--panel-frame, var(--bar))); }
+.hud-scrollbar::after { border-bottom-color: var(--panel-frame-end, var(--panel-frame, var(--bar))); }
 .hud-scroll-thumb { background: var(--scroll-thumb); }
 .hud-scroll-thumb:hover, .hud-scrollbar.is-dragging .hud-scroll-thumb { background: var(--scroll-thumb-hover); }
 .pill-frame .pill-bg { fill: transparent; stroke: var(--pill-stroke); stroke-width: 1.35; }
@@ -624,9 +696,12 @@ html[data-series="at3"] .bg-neutral { opacity: 0; }
 
   function applyLiveStyles() {
     liveStyleEl.textContent = compileFullCss();
+    if (typeof window.syncPanelFrameGradient === "function") {
+      window.syncPanelFrameGradient();
+    }
   }
 
-  /* ── UI 字段定义（包含变体 2 护边、分层阴影与内收微光参数） ── */
+  /* ── UI 字段定义（包含主窗可控渐变、分层装甲、护边、分层阴影与内收微光参数） ── */
   const GROUPS = [
     {
       id: "bg",
@@ -644,7 +719,7 @@ html[data-series="at3"] .bg-neutral { opacity: 0; }
     },
     {
       id: "panel",
-      title: "2. 中央主窗、护边与下沉影",
+      title: "2. 中央主窗、外框色条与下沉影",
       open: true,
       presets: [
         { label: "烟熏黑底主窗", action: "darkPanel" },
@@ -653,15 +728,54 @@ html[data-series="at3"] .bg-neutral { opacity: 0; }
       fields: [
         { type: "colorAlpha", colorKey: "panelBgColor", alphaKey: "panelBgAlpha", label: "主窗底色 / 透明度", minA: 0.15, maxA: 1.00 },
         { type: "range", key: "panelBlur", label: "主窗毛玻璃模糊", min: 0, max: 40, step: 1, unit: "px" },
-        { type: "color", key: "panelFrameColor", label: "主窗外框与装甲色" },
         { type: "color", key: "accentColor", label: "内容强调与按钮色" },
-        { type: "color", key: "connectorColor", label: "左上 HUD 连接导线色" },
         { type: "color", key: "scrollThumbColor", label: "右侧滚动条滑块色" },
         { type: "colorAlpha", colorKey: "surface2Color", alphaKey: "surface2Alpha", label: "内部条带与卡片底色", maxA: 1.00 },
         { type: "colorAlpha", colorKey: "lineColor", alphaKey: "lineAlpha", label: "内部分割线色 / 浓度", maxA: 1.00 },
-        { type: "subhead", label: "外框防融边护边与下沉影（变体 2）" },
+
+        { type: "subhead", label: "主窗外框可控线性渐变" },
+        {
+          type: "angle",
+          key: "panelGradAngle",
+          label: "外框渐变方向角度",
+          presets: [
+            { label: "135°↘", val: 135 },
+            { label: "90°→", val: 90 },
+            { label: "180°↓", val: 180 },
+            { label: "45°↗", val: 45 },
+            { label: "315°↖", val: 315 }
+          ]
+        },
+        {
+          type: "tripleColor",
+          key1: "panelFrameStart",
+          key2: "panelFrameColor",
+          key3: "panelFrameEnd",
+          t1: "高光起始色",
+          t2: "主体框色",
+          t3: "暗部收尾色",
+          label: "外框渐变色（起 / 主 / 尾）"
+        },
+        { type: "range", key: "panelGradMid", label: "渐变主色中继位置", min: 15, max: 85, step: 1, unit: "%" },
+
+        { type: "subhead", label: "局部色条与左上汇入点调色" },
+        { type: "dualColor", key1: "connectorColor", key2: "connNodeColor", label: "左上导线色 / 汇入圆点色" },
+        { type: "dualColor", key1: "stepLeadColor", key2: "stepMainColor", label: "右上阶梯条（前导块 / 主体）" },
+        { type: "dualColor", key1: "stepLouverColor", key2: "stepCapColor", label: "右上阶梯条（斜格栅 / 折角）" },
+        {
+          type: "tripleColor",
+          key1: "cornerTri1Color",
+          key2: "cornerTri2Color",
+          key3: "cornerTri3Color",
+          t1: "一阶外斜带",
+          t2: "二阶中斜带",
+          t3: "三阶内角核",
+          label: "右下三阶三角（外 / 中 / 核）"
+        },
+
+        { type: "subhead", label: "外框防融边护边与下沉影" },
         { type: "colorAlpha", colorKey: "panelGuardColor", alphaKey: "panelGuardAlpha", label: "外护边色 / 浓度", maxA: 1.00 },
-        { type: "range", key: "panelGuardWidth", label: "外护边线宽", min: 0, max: 8, step: 0.2, unit: "px" },
+        { type: "range", key: "panelGuardWidth", label: "外护边线宽", min: 0, max: 12, step: 0.2, unit: "px" },
         { type: "range", key: "panelShadowY", label: "主窗下沉长影深度", min: 0, max: 48, step: 1, unit: "px" },
         { type: "range", key: "panelDeepShadowAlpha", label: "主窗下沉长影浓度", min: 0, max: 1.00, step: 0.02, unit: "" },
         { type: "range", key: "panelContactShadowAlpha", label: "主窗近距接触影浓度", min: 0, max: 1.00, step: 0.02, unit: "" },
@@ -770,6 +884,41 @@ html[data-series="at3"] .bg-neutral { opacity: 0; }
           </div>
         </div>`;
     }
+    if (f.type === "tripleColor") {
+      return `
+        <div class="sh-row" data-field="${f.key1}">
+          <span class="sh-label">${f.label}</span>
+          <div class="sh-controls-triple">
+            <div class="sh-triple-item" title="${f.t1 || ""}">
+              <input type="color" class="sh-color-swatch" data-bind-color="${f.key1}" />
+              <input type="text" class="sh-hex-input" data-bind-hex="${f.key1}" maxlength="7" spellcheck="false" />
+            </div>
+            <div class="sh-triple-item" title="${f.t2 || ""}">
+              <input type="color" class="sh-color-swatch" data-bind-color="${f.key2}" />
+              <input type="text" class="sh-hex-input" data-bind-hex="${f.key2}" maxlength="7" spellcheck="false" />
+            </div>
+            <div class="sh-triple-item" title="${f.t3 || ""}">
+              <input type="color" class="sh-color-swatch" data-bind-color="${f.key3}" />
+              <input type="text" class="sh-hex-input" data-bind-hex="${f.key3}" maxlength="7" spellcheck="false" />
+            </div>
+          </div>
+        </div>`;
+    }
+    if (f.type === "angle") {
+      return `
+        <div class="sh-row" data-field="${f.key}">
+          <div class="sh-label">
+            <span>${f.label}</span>
+            <span class="sh-val-readout" data-readout="${f.key}" data-unit="°"></span>
+          </div>
+          <div class="sh-controls">
+            <input type="range" class="sh-range" data-bind-range="${f.key}" min="0" max="360" step="1" />
+          </div>
+          <div class="sh-angle-presets">
+            ${(f.presets || []).map((pr) => `<button type="button" class="sh-angle-btn" data-angle-key="${f.key}" data-angle-val="${pr.val}">${pr.label}</button>`).join("")}
+          </div>
+        </div>`;
+    }
     return "";
   }
 
@@ -874,6 +1023,11 @@ html[data-series="at3"] .bg-neutral { opacity: 0; }
       const val = Number(p[k]);
       el.textContent = (Number.isInteger(val) && unit !== "" ? val : Number(val.toFixed(3))) + unit;
     });
+
+    tunerEl.querySelectorAll("[data-angle-val]").forEach((btn) => {
+      const ak = btn.dataset.angleKey;
+      btn.setAttribute("aria-pressed", String(Number(p[ak]) === Number(btn.dataset.angleVal)));
+    });
   }
 
   /* 监听颜色选择器与滑杆实时更新 */
@@ -904,6 +1058,9 @@ html[data-series="at3"] .bg-neutral { opacity: 0; }
       tunerEl.querySelectorAll(`[data-readout="${k}"]`).forEach((el) => {
         const unit = el.dataset.unit || "";
         el.textContent = (Number.isInteger(p[k]) && unit !== "" ? p[k] : Number(p[k].toFixed(3))) + unit;
+      });
+      tunerEl.querySelectorAll(`[data-angle-key="${k}"]`).forEach((btn) => {
+        btn.setAttribute("aria-pressed", String(Number(p[k]) === Number(btn.dataset.angleVal)));
       });
       applyLiveStyles();
       saveProfiles();
@@ -940,6 +1097,17 @@ html[data-series="at3"] .bg-neutral { opacity: 0; }
       return;
     }
 
+    const angleBtn = e.target.closest("[data-angle-val]");
+    if (angleBtn) {
+      const key = activeProfileKey();
+      const ak = angleBtn.dataset.angleKey;
+      profiles[key][ak] = Number(angleBtn.dataset.angleVal);
+      refreshInputsFromProfile();
+      applyLiveStyles();
+      saveProfiles();
+      return;
+    }
+
     const presetBtn = e.target.closest("[data-preset]");
     if (presetBtn) {
       const key = activeProfileKey();
@@ -956,15 +1124,25 @@ html[data-series="at3"] .bg-neutral { opacity: 0; }
         p.inkTitle = "#f3f6fb";
         p.inkBody = "#dde3ee";
         p.inkMute = "#9aa6b8";
-        p.panelGuardColor = "#04060d";
-        p.panelGuardAlpha = 0.92;
-        p.panelDeepShadowAlpha = 0.70;
-        p.panelContactShadowAlpha = 0.82;
-        p.connShadowAlpha = 0.62;
+        p.panelGuardColor = darkRef.panelGuardColor;
+        p.panelGuardAlpha = darkRef.panelGuardAlpha;
+        p.panelDeepShadowAlpha = 0.66;
+        p.panelContactShadowAlpha = 0.88;
+        p.connShadowAlpha = 0.44;
         if (luminance(p.panelFrameColor) < 0.25) {
-          p.panelFrameColor = p.navSelStrokeColor;
-          p.connectorColor = p.navSelStrokeColor;
-          p.scrollThumbColor = p.navSelStrokeColor;
+          p.panelFrameStart = darkRef.panelFrameStart;
+          p.panelFrameColor = darkRef.panelFrameColor;
+          p.panelFrameEnd = darkRef.panelFrameEnd;
+          p.connectorColor = darkRef.connectorColor;
+          p.connNodeColor = darkRef.connNodeColor;
+          p.stepLeadColor = darkRef.stepLeadColor;
+          p.stepMainColor = darkRef.stepMainColor;
+          p.stepLouverColor = darkRef.stepLouverColor;
+          p.stepCapColor = darkRef.stepCapColor;
+          p.cornerTri1Color = darkRef.cornerTri1Color;
+          p.cornerTri2Color = darkRef.cornerTri2Color;
+          p.cornerTri3Color = darkRef.cornerTri3Color;
+          p.scrollThumbColor = darkRef.scrollThumbColor;
         }
         showToast("已切换为烟熏黑底主窗");
       } else if (presetBtn.dataset.preset === "lightPanel") {
@@ -978,8 +1156,15 @@ html[data-series="at3"] .bg-neutral { opacity: 0; }
         p.inkTitle = lightRef.inkTitle;
         p.inkBody = lightRef.inkBody;
         p.inkMute = lightRef.inkMute;
+        p.panelFrameStart = shiftHex(p.accentColor, -26);
         p.panelFrameColor = p.accentColor;
+        p.panelFrameEnd = shiftHex(p.accentColor, 48);
         p.connectorColor = p.accentColor;
+        p.stepMainColor = shiftHex(p.accentColor, 18);
+        p.stepLouverColor = shiftHex(p.accentColor, -26);
+        p.stepCapColor = p.accentColor;
+        p.cornerTri1Color = p.accentColor;
+        p.cornerTri2Color = shiftHex(p.accentColor, 42);
         p.scrollThumbColor = p.accentColor;
         p.panelGuardColor = "#ffffff";
         p.panelGuardAlpha = 0.90;
@@ -1015,7 +1200,8 @@ html[data-series="at3"] .bg-neutral { opacity: 0; }
       const curIsDark = luminance(cur.panelBgColor) < 0.45;
       const alwaysKeys = [
         "bgBlur", "bgSaturate", "bgOpacity", "veilCenterAlpha", "veilEdgeAlpha",
-        "grainAlpha", "panelBgAlpha", "panelBlur", "panelGuardWidth", "panelShadowY",
+        "grainAlpha", "panelBgAlpha", "panelBlur", "panelGradAngle", "panelGradMid",
+        "panelGuardWidth", "panelShadowY",
         "navBgAlpha", "navBlur", "navSelAlpha", "navGuardAlpha",
         "navIdleShadowAlpha", "navSelShadowAlpha", "navSelGlowAlpha"
       ];

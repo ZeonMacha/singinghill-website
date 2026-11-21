@@ -25,10 +25,10 @@ ROOT_DIR = PLUGIN_DIR.parents[1]
 THEME_CSS_PATH = ROOT_DIR / "css" / "theme.css"
 MAX_THEME_BYTES = 256 * 1024
 
-HEAD_INJECT = '  <link rel="stylesheet" href="/__tuner/tuner.css?v=4" />\n'
+HEAD_INJECT = '  <link rel="stylesheet" href="/__tuner/tuner.css?v=5" />\n'
 BODY_INJECT = (
     '  <script>window.__SH_TUNER_PLUGIN__ = { canWriteTheme: true };</script>\n'
-    '  <script src="/__tuner/tuner.js?v=4"></script>\n'
+    '  <script src="/__tuner/tuner.js?v=5"></script>\n'
 )
 
 mimetypes.add_type("text/css", ".css")

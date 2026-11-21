@@ -315,6 +315,61 @@
   color: rgba(206, 216, 232, 0.78);
 }
 
+.sh-controls-triple {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 5px;
+}
+.sh-triple-item {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  min-width: 0;
+}
+.sh-triple-item .sh-color-swatch {
+  flex: 0 0 22px;
+  width: 22px;
+  height: 22px;
+}
+.sh-triple-item .sh-hex-input {
+  flex: 1;
+  min-width: 0;
+  width: auto;
+  height: 22px;
+  padding: 0 4px;
+  font-size: 10px;
+  line-height: 20px;
+}
+
+.sh-angle-presets {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 4px;
+  margin-top: 2px;
+}
+.sh-angle-btn {
+  padding: 3px 2px;
+  border-radius: 3px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(220, 229, 242, 0.82);
+  font: 400 10px/1.15 var(--font-ui);
+  text-align: center;
+  cursor: pointer;
+  transition: all 120ms ease;
+}
+.sh-angle-btn:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.32);
+  color: #ffffff;
+}
+.sh-angle-btn[aria-pressed="true"] {
+  background: rgba(255, 255, 255, 0.90);
+  border-color: #ffffff;
+  color: #12161f;
+  font-weight: 700;
+}
+
 /* 底部操作栏 */
 .sh-tuner-foot {
   display: flex;

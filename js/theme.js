@@ -31,14 +31,22 @@
     panelEl.prepend(panelGlassEl);
   }
 
-  /* ── 3. 为连接导线层注入底层防融边护边节点 ── */
+  /* ── 3. 为连接导线层注入底层防融边护边与左上汇入圆点节点 ── */
   let connectorGuardEl = null;
+  let connectorNodeEl = null;
   if (typeof connectorLayerEl !== "undefined" && connectorLayerEl) {
     connectorGuardEl = document.createElementNS("http://www.w3.org/2000/svg", "path");
     connectorGuardEl.setAttribute("id", "connector-guard");
     connectorGuardEl.setAttribute("class", "connector-guard");
     connectorGuardEl.setAttribute("d", "");
     connectorLayerEl.prepend(connectorGuardEl);
+
+    connectorNodeEl = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+    connectorNodeEl.setAttribute("id", "connector-node");
+    connectorNodeEl.setAttribute("class", "connector-node");
+    connectorNodeEl.setAttribute("r", "2.8");
+    connectorNodeEl.style.display = "none";
+    connectorLayerEl.appendChild(connectorNodeEl);
   }
 
   /* ── 4. SVG 多边形路径解析与精确平行外扩算法 ── */
@@ -155,6 +163,63 @@
     el.style.clipPath = val;
   }
 
+  function syncPanelFrameGradient() {
+    if (typeof panelEl === "undefined" || !panelEl || typeof panelFgSvgEl === "undefined" || !panelFgSvgEl) {
+      return;
+    }
+    const w = panelEl.clientWidth;
+    const h = panelEl.clientHeight;
+    if (w <= 0 || h <= 0) return;
+
+    const rootStyle = getComputedStyle(document.documentElement);
+    const rawAngle = parseFloat(rootStyle.getPropertyValue("--panel-grad-angle"));
+    const gradAngle = Number.isFinite(rawAngle) ? rawAngle : 135;
+    const rawMid = parseFloat(rootStyle.getPropertyValue("--panel-grad-mid"));
+    const gradMid = Number.isFinite(rawMid) ? Math.max(5, Math.min(95, rawMid)) : 46;
+
+    const rad = (gradAngle * Math.PI) / 180;
+    const vx = Math.sin(rad);
+    const vy = -Math.cos(rad);
+    const halfLen = (Math.abs(w * vx) + Math.abs(h * vy)) / 2;
+    const gx1 = (w / 2 - vx * halfLen).toFixed(2);
+    const gy1 = (h / 2 - vy * halfLen).toFixed(2);
+    const gx2 = (w / 2 + vx * halfLen).toFixed(2);
+    const gy2 = (h / 2 + vy * halfLen).toFixed(2);
+
+    let gradEl = panelFgSvgEl.querySelector("#sh-panel-frame-grad");
+    if (!gradEl) {
+      panelFgSvgEl.insertAdjacentHTML(
+        "afterbegin",
+        `<defs class="theme-fg-fx">
+          <linearGradient id="sh-panel-frame-grad" gradientUnits="userSpaceOnUse"
+                          x1="${gx1}" y1="${gy1}" x2="${gx2}" y2="${gy2}">
+            <stop class="sh-panel-grad-start" offset="0%" />
+            <stop class="sh-panel-grad-mid" offset="${gradMid}%" />
+            <stop class="sh-panel-grad-end" offset="100%" />
+          </linearGradient>
+        </defs>`
+      );
+      gradEl = panelFgSvgEl.querySelector("#sh-panel-frame-grad");
+    } else {
+      gradEl.setAttribute("x1", gx1);
+      gradEl.setAttribute("y1", gy1);
+      gradEl.setAttribute("x2", gx2);
+      gradEl.setAttribute("y2", gy2);
+      const midStopEl = gradEl.querySelector(".sh-panel-grad-mid");
+      if (midStopEl) midStopEl.setAttribute("offset", `${gradMid}%`);
+    }
+
+    if (typeof panelOutlineEl !== "undefined" && panelOutlineEl) {
+      panelOutlineEl.style.stroke = "url(#sh-panel-frame-grad)";
+    }
+    if (typeof panelAccentsEl !== "undefined" && panelAccentsEl) {
+      panelAccentsEl.querySelectorAll(".frame-corner-line").forEach((el) => {
+        el.style.stroke = "url(#sh-panel-frame-grad)";
+      });
+    }
+  }
+  window.syncPanelFrameGradient = syncPanelFrameGradient;
+
   function syncPanelLayer() {
     if (typeof panelFillEl === "undefined" || !panelFillEl) return;
     const d = panelFillEl.getAttribute("d");
@@ -188,16 +253,105 @@
         <path class="panel-guard" d="${outerGuardD}" fill="none" stroke-linejoin="miter" />
       </g>`
     );
+
+    syncPanelFrameGradient();
+
+    /* 重绘前景分层装甲：右上四段式阶梯色条 + 左侧脱缝渐变竖护板 + 右下三阶段平行斜切三角 */
+    if (typeof panelArmorEl !== "undefined" && panelArmorEl) {
+      const isMobile = typeof mobileMenuQuery !== "undefined" && mobileMenuQuery.matches;
+      const compact = w < 620;
+      const headerBottom = isMobile ? 41 : 36;
+      const stepRun = isMobile ? 22 : 19;
+      const platStart = isMobile ? 24 : 42;
+      const platEnd = isMobile
+        ? Math.min(w - 76, Math.max(platStart + 150, Math.round(w * 0.67)))
+        : Math.min(w - 280, Math.max(platStart + 215, Math.round(w * 0.35)));
+      const stepEndX = platEnd + stepRun;
+
+      let topRightArmor = "";
+      const armorStartX = Math.max(stepEndX + 48, Math.round(w * 0.62));
+      const wrapLeftBot = w - 27.4;
+      const span = wrapLeftBot - armorStartX;
+      if (!isMobile && span >= 50) {
+        const yIn = (headerBottom - 2.2).toFixed(1);
+        const yOut = (headerBottom - 7.6).toFixed(1);
+        const slant = 5.0;
+        const louverCount = span >= 86 ? 3 : 2;
+        const louverPitch = 7.2;
+        const louverW = 3.6;
+        const seam = 3.6;
+        const louverZoneW = (louverCount - 1) * louverPitch + louverW + seam;
+        const louverBase0 = wrapLeftBot - louverZoneW;
+        const leadW = Math.min(22, Math.max(13, Math.round(span * 0.11)));
+        const mainStart = armorStartX + leadW + seam;
+        const mainEnd = louverBase0 - seam;
+
+        const leadPath = `<path class="panel-step-lead" d="M ${armorStartX.toFixed(1)} ${yIn} L ${(armorStartX + slant).toFixed(1)} ${yOut} H ${(armorStartX + slant + leadW).toFixed(1)} L ${(armorStartX + leadW).toFixed(1)} ${yIn} Z" />`;
+        const mainPath = mainEnd > mainStart + 6
+          ? `<path class="panel-step-main" d="M ${mainStart.toFixed(1)} ${yIn} L ${(mainStart + slant).toFixed(1)} ${yOut} H ${(mainEnd + slant).toFixed(1)} L ${mainEnd.toFixed(1)} ${yIn} Z" />`
+          : "";
+        let louversHtml = "";
+        for (let i = 0; i < louverCount; i++) {
+          const lx = louverBase0 + i * louverPitch;
+          louversHtml += `<path class="panel-step-louver" d="M ${lx.toFixed(1)} ${yIn} L ${(lx + slant).toFixed(1)} ${yOut} H ${(lx + slant + louverW).toFixed(1)} L ${(lx + louverW).toFixed(1)} ${yIn} Z" />`;
+        }
+        const capPath = `<path class="panel-step-cap" d="M ${wrapLeftBot.toFixed(1)} ${yIn} L ${(wrapLeftBot + slant).toFixed(1)} ${yOut} H ${(w - 21.2).toFixed(1)} L ${(w - 2.6).toFixed(1)} ${(headerBottom + 11.0).toFixed(1)} V ${(headerBottom + 19.4).toFixed(1)} L ${(w - 24.2).toFixed(1)} ${yIn} Z" />`;
+        topRightArmor = leadPath + mainPath + louversHtml + capPath;
+      }
+
+      const sideTop = Math.max(isMobile ? 84 : 90, Math.round(h * 0.21));
+      const sideH = Math.min(104, Math.max(64, Math.round(h * 0.20)));
+      const sideBot = Math.min(h - 92, sideTop + sideH);
+      const sideX0 = isMobile ? 10.6 : 11.2;
+      const sideX1 = isMobile ? 15.2 : 16.8;
+      const sideArmor = sideBot - sideTop >= 48
+        ? `<path class="panel-side-armor" style="fill: url(#sh-panel-frame-grad)" d="M ${sideX0} ${sideTop} L ${sideX1} ${sideTop + 6} V ${sideBot - 6} L ${sideX0} ${sideBot} Z" />`
+        : "";
+
+      const rx = w - (compact ? 11.0 : 11.5);
+      const ry = h - (compact ? 11.0 : 11.5);
+      const s = compact ? 0.76 : 1;
+      const o1 = 38 * s, i1 = 26 * s;
+      const o2 = 21 * s, i2 = 11 * s;
+      const o3 = 6.2 * s;
+      const cornerTri = [
+        `<path class="panel-tri-1" d="M ${rx.toFixed(1)} ${(ry - o1).toFixed(1)} L ${(rx - o1).toFixed(1)} ${ry.toFixed(1)} H ${(rx - i1).toFixed(1)} L ${rx.toFixed(1)} ${(ry - i1).toFixed(1)} Z" />`,
+        `<path class="panel-tri-2" d="M ${rx.toFixed(1)} ${(ry - o2).toFixed(1)} L ${(rx - o2).toFixed(1)} ${ry.toFixed(1)} H ${(rx - i2).toFixed(1)} L ${rx.toFixed(1)} ${(ry - i2).toFixed(1)} Z" />`,
+        `<path class="panel-tri-3" d="M ${rx.toFixed(1)} ${(ry - o3).toFixed(1)} L ${(rx - o3).toFixed(1)} ${ry.toFixed(1)} H ${rx.toFixed(1)} Z" />`
+      ].join("");
+
+      panelArmorEl.innerHTML = topRightArmor + sideArmor + cornerTri;
+    }
   }
 
   function syncConnectorLayer() {
     if (!connectorGuardEl || typeof connectorLineEl === "undefined" || !connectorLineEl) return;
     if (typeof mobileMenuQuery !== "undefined" && mobileMenuQuery.matches) {
       connectorGuardEl.setAttribute("d", "");
+      if (connectorNodeEl) connectorNodeEl.style.display = "none";
       return;
     }
     const lineD = connectorLineEl.getAttribute("d") || "";
     connectorGuardEl.setAttribute("d", lineD);
+
+    if (typeof connectorCapsEl !== "undefined" && connectorCapsEl) {
+      const capsD = connectorCapsEl.getAttribute("d") || "";
+      const leftOnly = capsD.match(/^M[^Z]*Z/i);
+      if (leftOnly) {
+        connectorCapsEl.setAttribute("d", leftOnly[0]);
+      }
+    }
+
+    if (connectorNodeEl) {
+      const m = lineD.match(/L\s*(-?\d+(?:\.\d+)?)\s+(-?\d+(?:\.\d+)?)\s*$/i);
+      if (m) {
+        connectorNodeEl.setAttribute("cx", m[1]);
+        connectorNodeEl.setAttribute("cy", m[2]);
+        connectorNodeEl.style.display = "";
+      } else {
+        connectorNodeEl.style.display = "none";
+      }
+    }
   }
 
   function syncBoxesLayer(container, boxSelector, frameBgSelector, kind) {

@@ -15,11 +15,23 @@
   --surface-3: rgba(232, 236, 242, 0.79);
 
   --panel-frame: #232730;
+  --panel-frame-start: #15181f;
+  --panel-frame-end: #7a8496;
+  --panel-grad-angle: 135;
+  --panel-grad-mid: 46%;
+  --panel-step-lead: #3b6ea8;
+  --panel-step-main: #464e5d;
+  --panel-step-louver: #15181f;
+  --panel-step-cap: #232730;
+  --panel-tri-1: #232730;
+  --panel-tri-2: #687385;
+  --panel-tri-3: #3b6ea8;
   --bar: #323844;
   --bar-2: #323844;
   --bar-3: #484e5a;
   --conn-main: #232730;
   --conn-aux: rgba(35, 39, 48, 0.68);
+  --conn-node: #3b6ea8;
   --scroll-thumb: #232730;
   --scroll-thumb-hover: #3b3f48;
 
@@ -170,6 +182,7 @@ html[data-series="at3"] .bg-neutral { opacity: 0; }
 #connector-aux { stroke: var(--conn-aux); transition: stroke 260ms var(--ease); }
 #connector-line { stroke: var(--conn-main); transition: stroke 260ms var(--ease); }
 #connector-caps { fill: var(--conn-main); transition: fill 260ms var(--ease); }
+.connector-node { fill: var(--conn-node, var(--conn-main)); stroke: var(--panel-guard-color, rgba(4, 6, 13, 0.92)); stroke-width: 1.4px; paint-order: stroke fill; transition: fill 260ms var(--ease), stroke 260ms var(--ease); }
 
 .panel-shadow-deep { filter: drop-shadow(0 var(--panel-shadow-y, 26px) var(--panel-shadow-blur, 25px) var(--panel-shadow-deep, rgba(0, 0, 0, 0.70))); }
 .panel-shadow-contact { filter: drop-shadow(0 5px 7px var(--panel-shadow-contact, rgba(0, 0, 0, 0.82))); }
@@ -204,14 +217,25 @@ html[data-series="at3"] .bg-neutral { opacity: 0; }
 .tab[aria-selected="true"] .tab-en { color: var(--tab-sel-ink); text-shadow: var(--sel-text-shadow); }
 .tab[aria-selected="true"] .tab-en::after { background: linear-gradient(90deg, var(--pill-sel-divider) 0%, var(--pill-sel-divider) 62%, transparent 100%); }
 .tab[aria-selected="true"] .tab-sub, .tab[aria-selected="true"] .tab-sub rt { color: var(--tab-sel-sub-ink); text-shadow: var(--sel-text-shadow); }
-#panel-outline { stroke: var(--panel-frame, var(--bar)); transition: stroke 260ms var(--ease); }
+.sh-panel-grad-start { stop-color: var(--panel-frame-start, var(--panel-frame)); transition: stop-color 260ms var(--ease); }
+.sh-panel-grad-mid { stop-color: var(--panel-frame, var(--bar)); transition: stop-color 260ms var(--ease); }
+.sh-panel-grad-end { stop-color: var(--panel-frame-end, var(--panel-frame)); transition: stop-color 260ms var(--ease); }
+#panel-outline { stroke: var(--panel-frame, var(--bar)); stroke-width: 2.1; transition: stroke 260ms var(--ease); }
 #panel-armor { fill: var(--panel-frame, var(--bar)); transition: fill 260ms var(--ease); }
+#panel-armor .panel-side-armor { opacity: 0.86; }
+#panel-armor .panel-step-lead { fill: var(--panel-step-lead, var(--panel-frame)); transition: fill 260ms var(--ease); }
+#panel-armor .panel-step-main { fill: var(--panel-step-main, var(--panel-frame)); transition: fill 260ms var(--ease); }
+#panel-armor .panel-step-louver { fill: var(--panel-step-louver, var(--panel-frame-start, var(--panel-frame))); transition: fill 260ms var(--ease); }
+#panel-armor .panel-step-cap { fill: var(--panel-step-cap, var(--panel-frame)); transition: fill 260ms var(--ease); }
+#panel-armor .panel-tri-1 { fill: var(--panel-tri-1, var(--panel-frame)); transition: fill 260ms var(--ease); }
+#panel-armor .panel-tri-2 { fill: var(--panel-tri-2, var(--panel-frame-start, var(--panel-frame))); transition: fill 260ms var(--ease); }
+#panel-armor .panel-tri-3 { fill: var(--panel-tri-3, var(--conn-node, var(--panel-frame))); transition: fill 260ms var(--ease); }
 #panel-accents .frame-corner-line { stroke: var(--panel-frame, var(--bar)); transition: stroke 260ms var(--ease); }
 .panel-tab { color: var(--ink); }
-.panel-tab::before { background: var(--panel-frame, var(--bar)); transition: background 260ms var(--ease); }
+.panel-tab::before { background: linear-gradient(180deg, var(--panel-frame-start, var(--panel-frame, var(--bar))), var(--panel-frame, var(--bar))); transition: background 260ms var(--ease); }
 .hud-scrollbar::before, .hud-scrollbar::after { border-left-color: var(--scroll-cap-side); border-right-color: var(--scroll-cap-side); }
-.hud-scrollbar::before { border-top-color: var(--panel-frame, var(--bar)); }
-.hud-scrollbar::after { border-bottom-color: var(--panel-frame, var(--bar)); }
+.hud-scrollbar::before { border-top-color: var(--panel-frame-start, var(--panel-frame, var(--bar))); }
+.hud-scrollbar::after { border-bottom-color: var(--panel-frame-end, var(--panel-frame, var(--bar))); }
 .hud-scroll-thumb { background: var(--scroll-thumb); }
 .hud-scroll-thumb:hover, .hud-scrollbar.is-dragging .hud-scroll-thumb { background: var(--scroll-thumb-hover); }
 .pill-frame .pill-bg { fill: transparent; stroke: var(--pill-stroke); stroke-width: 1.35; }
@@ -254,11 +278,23 @@ html[data-series="at1"] {
   --surface-3: rgba(255, 255, 255, 0.07);
 
   --panel-frame: #c7aef4;
+  --panel-frame-start: #f3e8ff;
+  --panel-frame-end: #5e3c96;
+  --panel-grad-angle: 135;
+  --panel-grad-mid: 46%;
+  --panel-step-lead: #f497cf;
+  --panel-step-main: #9f80d4;
+  --panel-step-louver: #f3e8ff;
+  --panel-step-cap: #c7aef4;
+  --panel-tri-1: #c7aef4;
+  --panel-tri-2: #f3e8ff;
+  --panel-tri-3: #f497cf;
   --bar: #8662b2;
   --bar-2: #8662b2;
   --bar-3: #9c78c8;
   --conn-main: #c7aef4;
   --conn-aux: rgba(199, 174, 244, 0.68);
+  --conn-node: #f497cf;
   --scroll-thumb: #8a79a4;
   --scroll-thumb-hover: #a291bc;
 
@@ -349,11 +385,23 @@ html[data-series="at2"] {
   --surface-3: rgba(255, 255, 255, 0.07);
 
   --panel-frame: #6094fb;
+  --panel-frame-start: #d6ebff;
+  --panel-frame-end: #1d3f8a;
+  --panel-grad-angle: 135;
+  --panel-grad-mid: 46%;
+  --panel-step-lead: #5eead4;
+  --panel-step-main: #4875d6;
+  --panel-step-louver: #d6ebff;
+  --panel-step-cap: #6094fb;
+  --panel-tri-1: #6094fb;
+  --panel-tri-2: #d6ebff;
+  --panel-tri-3: #5eead4;
   --bar: #2753aa;
   --bar-2: #2753aa;
   --bar-3: #3d69c0;
   --conn-main: #6094fb;
   --conn-aux: rgba(96, 148, 251, 0.68);
+  --conn-node: #5eead4;
   --scroll-thumb: #4b608b;
   --scroll-thumb-hover: #6378a3;
 
@@ -444,11 +492,23 @@ html[data-series="at3"] {
   --surface-3: rgba(255, 255, 255, 0.07);
 
   --panel-frame: #8ed0ec;
+  --panel-frame-start: #e4f9ff;
+  --panel-frame-end: #315f7c;
+  --panel-grad-angle: 135;
+  --panel-grad-mid: 46%;
+  --panel-step-lead: #f3a2d4;
+  --panel-step-main: #6aa9c7;
+  --panel-step-louver: #e4f9ff;
+  --panel-step-cap: #8ed0ec;
+  --panel-tri-1: #8ed0ec;
+  --panel-tri-2: #e4f9ff;
+  --panel-tri-3: #f3a2d4;
   --bar: #73ccf2;
   --bar-2: #73ccf2;
   --bar-3: #89e2ff;
   --conn-main: #8ed0ec;
   --conn-aux: rgba(142, 208, 236, 0.68);
+  --conn-node: #f3a2d4;
   --scroll-thumb: #71a2b7;
   --scroll-thumb-hover: #89bacf;
 

@@ -94,8 +94,8 @@ try {
     if ($path -eq "/" -or $path -eq "/index.html") {
       $indexPath = Join-Path $RootDir "index.html"
       $html = [System.IO.File]::ReadAllText($indexPath, [System.Text.Encoding]::UTF8)
-      $headTag = "  <link rel=`"stylesheet`" href=`"/__tuner/tuner.css?v=4`" />`n"
-      $bodyTag = "  <script>window.__SH_TUNER_PLUGIN__ = { canWriteTheme: true };</script>`n  <script src=`"/__tuner/tuner.js?v=4`"></script>`n"
+      $headTag = "  <link rel=`"stylesheet`" href=`"/__tuner/tuner.css?v=5`" />`n"
+      $bodyTag = "  <script>window.__SH_TUNER_PLUGIN__ = { canWriteTheme: true };</script>`n  <script src=`"/__tuner/tuner.js?v=5`"></script>`n"
       $html = [regex]::Replace($html, "(?i)</head>", ($headTag + "`$0"), 1)
       $html = [regex]::Replace($html, "(?i)</body>", ($bodyTag + "`$0"), 1)
       Send-Bytes $resp ([System.Text.Encoding]::UTF8.GetBytes($html)) "text/html; charset=utf-8" 200 $headOnly
